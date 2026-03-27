@@ -480,6 +480,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 48px;
   }
   .modal-tag-pill {
     font-size: 10px;
@@ -491,6 +492,42 @@
     transition: background 0.2s, color 0.2s;
   }
   .modal-tag-pill:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .case-study {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 8px;
+  }
+  .cs-block { border-top: 1px solid var(--line); padding-top: 28px; }
+  .cs-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .cs-text {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.9;
+  }
+  .cs-text p + p { margin-top: 12px; }
+  .cs-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .cs-list li {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+    display: flex;
+    gap: 10px;
+  }
+  .cs-list li::before { content: '—'; color: var(--muted); flex-shrink: 0; }
 
   /* About section */
   .about-section {
@@ -895,6 +932,7 @@
       <p class="modal-desc" id="modalDesc"></p>
       <div class="modal-specs" id="modalSpecs"></div>
       <div class="modal-tags" id="modalTagPills"></div>
+      <div class="case-study" id="modalCaseStudy"></div>
     </div>
   </div>
 </div>
@@ -909,7 +947,10 @@ const projects = [
     role: "Product Designer",
     duration: "—",
     video: "videos/jobify.webm",
-    desc: "Jobify is an AI-powered CV generator that converts voice into formatted, job-ready resumes. The core challenge was designing a voice-first experience that felt natural and reliable — even when inputs were unclear.\n\n— Built structured fallback states for failed or unclear voice inputs\n— Designed for minimal cognitive load: speak, review, export\n— Improved accessibility for visually-disabled users and those who prefer voice interaction\n— Validated voice as a practical layer on top of traditional job application UI",
+    desc: "Jobify is an AI-powered CV generator that converts voice into formatted, job-ready resumes — designed to make the job application process faster and more accessible.",
+    problem: "Job seekers spend hours reformatting CVs for different roles. For users with visual impairments or those who think better verbally, traditional form-based CV builders create unnecessary barriers. The challenge was: could voice replace the keyboard entirely without sacrificing quality or control?",
+    approach: ["Designed a voice-first flow where users speak their experience naturally and the AI structures it into a formatted CV", "Built fallback states for unclear, incomplete, or failed voice inputs so the experience never felt broken", "Kept the interface minimal — speak, review, edit, export — to reduce cognitive load at every step", "Tested with users who prefer voice interaction, including visually-disabled users, to validate accessibility gains"],
+    outcome: "Validated that voice is a viable and preferable input method for a significant subset of users. The MVP demonstrated that removing keyboard dependency from CV creation improves both speed and accessibility without reducing output quality.",
     tags: ["AI", "Voice UX", "Accessibility", "Web App", "Figma"]
   },
   {
@@ -920,7 +961,10 @@ const projects = [
     duration: "—",
     video: "videos/oyjen.webm",
     link: "https://oyjencapital.com/",
-    desc: "OYJEN Capital connects institutional investors with structured U.S.–Africa investment opportunities across energy, logistics, digital infrastructure, and resource sectors. The design challenge was translating a complex financial proposition into a site that feels authoritative without being inaccessible — built around three service pillars and serving stakeholders across New York, Lagos, and Nairobi. As they put it: capital does not move on narrative. It moves on structure.",
+    desc: "OYJEN Capital is a cross-border institutional capital platform connecting U.S. investors with structured African investment opportunities across energy, logistics, digital infrastructure, and resource sectors.",
+    problem: "Institutional investment in Africa is often hindered not by lack of interest, but by lack of structure — unclear frameworks, governance gaps, and a perception of risk that outweighs the opportunity. The website needed to change that narrative by leading with credibility, clarity, and a concrete value proposition.",
+    approach: ["Designed around three core service pillars: Capital Intelligence, Institutional Alignment, and Structured Deployment Pathways", "Used an editorial visual language — restrained, typographic, authoritative — to match the tone of institutional finance", "Structured the information hierarchy to move visitors from context to conviction: what OYJEN does, why it matters, and how to engage", "Ensured the site served multiple audiences across New York, Lagos, and Nairobi without losing coherence"],
+    outcome: "A site that communicates OYJEN's core thesis — capital moves on structure, not narrative — at a glance. The design positions the platform as a credible institutional partner rather than a general-purpose investment service.",
     tags: ["Web Design", "Figma", "Branding", "Finance", "Editorial"]
   },
   {
@@ -931,7 +975,10 @@ const projects = [
     duration: "—",
     video: "videos/encomia.webm",
     link: "https://encomia.vercel.app/",
-    desc: "ENCOMIA is an online self-service printing platform for businesses — offering 200+ print products with next-day dispatch and a free in-browser designer. The design challenge was simplifying a wide, complex product catalogue into a fast, intuitive ordering flow. From business cards to custom packaging, the experience needed to make professional printing feel as easy as any everyday online order.",
+    desc: "ENCOMIA is a self-service online printing platform for businesses — offering 200+ print products, next-day dispatch, and a free in-browser design tool.",
+    problem: "Ordering professional print materials is often frustratingly complex — confusing product options, technical file requirements, and slow turnarounds. Small businesses in particular don't have the time or design expertise to navigate traditional print suppliers. ENCOMIA needed to feel as easy as ordering anything else online.",
+    approach: ["Simplified the product catalogue into clear categories with guided configuration, reducing decision fatigue", "Designed an in-browser design tool with templates so users could create without any software or design skills", "Built a fast checkout flow prioritising speed — order before 2PM, ships same day", "Added a satisfaction guarantee touchpoint into the flow to build trust at the point of commitment"],
+    outcome: "A printing experience that removes the traditional friction of professional print — fast, approachable, and trusted by businesses nationwide, with 50,000+ five-star reviews validating the simplified approach.",
     tags: ["Web App", "Figma", "UX", "Design System"]
   },
   {
@@ -942,7 +989,10 @@ const projects = [
     duration: "—",
     video: "videos/jaja.webm",
     link: "https://www.behance.net/gallery/212534073/Jaja-Clinic-Transforming-university-healthcare",
-    desc: "Jaja Clinic is a redesign of a university healthcare system's digital experience. The project tackled the gap between outdated clinic processes and what modern students actually expect from healthcare — reducing friction at every touchpoint from appointment booking to follow-up, and making care feel genuinely accessible rather than something to navigate around.",
+    desc: "Jaja Clinic is a redesign of a university healthcare system's digital experience — built to close the gap between outdated clinic processes and what modern students actually expect from healthcare.",
+    problem: "University students often avoid seeking healthcare not because services don't exist, but because the process feels too cumbersome — long queues, confusing booking systems, and a general sense that the system wasn't designed for them. The clinic needed a digital experience that matched student expectations and removed every reason to delay care.",
+    approach: ["Mapped the full patient journey from awareness to follow-up to identify friction points across the experience", "Redesigned the appointment booking flow to be completable in under two minutes on mobile", "Introduced clear status updates and reminders to reduce no-shows and patient anxiety", "Prioritised accessibility and inclusivity throughout — legible typography, sufficient contrast, simple language"],
+    outcome: "A healthcare experience that feels built for students, not administrators. The redesign reduced the perceived effort of accessing care and made the clinic's services feel genuinely approachable for a modern university audience.",
     tags: ["iOS", "Android", "Healthcare UX", "Figma", "Protopie"]
   },
   {
@@ -953,7 +1003,10 @@ const projects = [
     duration: "—",
     video: "",
     link: "https://www.behance.net/gallery/148618049/Grabby",
-    desc: "Grabby is a mobile app designed and built collaboratively by a team of seven designers. The project explored how to create a fast, friction-free mobile experience — prioritising speed, clarity, and ease of use. View the full case study on Behance for the complete process and outcomes.",
+    desc: "Grabby is a mobile app designed collaboratively by a team of seven designers, exploring how to create a fast, friction-free mobile experience from the ground up.",
+    problem: "Collaborative design projects often produce inconsistent results — too many voices, competing visions, and a final product that feels patched together. The challenge was to align a team of seven designers around a single, coherent product experience without losing individual contribution.",
+    approach: ["Established a shared design language and component library early to keep the team aligned", "Split ownership by user journey section while maintaining consistent visual and interaction patterns across the whole", "Ran regular design critiques to surface inconsistencies and resolve them as a team", "Focused the core experience on speed and simplicity — every screen had to earn its place"],
+    outcome: "A cohesive mobile product built by a team of seven — demonstrating that collaborative design at scale can produce a unified, high-quality result when process and communication are prioritised from the start.",
     tags: ["iOS", "Mobile", "Figma", "UX", "Case Study"]
   }
 ];
@@ -991,6 +1044,7 @@ const modalVideo = document.getElementById('modalVideo');
 const modalDesc = document.getElementById('modalDesc');
 const modalSpecs = document.getElementById('modalSpecs');
 const modalTagPills = document.getElementById('modalTagPills');
+const modalCaseStudy = document.getElementById('modalCaseStudy');
 
 function openModal(i) {
   const p = projects[i];
@@ -1053,6 +1107,20 @@ function openModal(i) {
     <div class="modal-spec"><p class="modal-spec-label">Duration</p><p class="modal-spec-value">${p.duration}</p></div>
   `;
   modalTagPills.innerHTML = p.tags.map(t => `<span class="modal-tag-pill">${t}</span>`).join('');
+  modalCaseStudy.innerHTML = `
+    ${p.problem ? `<div class="cs-block">
+      <p class="cs-label">The Challenge</p>
+      <p class="cs-text">${p.problem}</p>
+    </div>` : ''}
+    ${p.approach ? `<div class="cs-block">
+      <p class="cs-label">Approach</p>
+      <ul class="cs-list">${p.approach.map(a => `<li>${a}</li>`).join('')}</ul>
+    </div>` : ''}
+    ${p.outcome ? `<div class="cs-block">
+      <p class="cs-label">Outcome</p>
+      <p class="cs-text">${p.outcome}</p>
+    </div>` : ''}
+  `;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
