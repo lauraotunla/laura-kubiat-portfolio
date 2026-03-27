@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f5f4f0;
+    --ink: #1a1916;
+    --muted: #8a8880;
+    --accent: #c8f060;
+    --line: rgba(26,25,22,0.12);
+    --panel: #ffffff;
+    --overlay: rgba(245,244,240,0.92);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+    opacity: 0.5;
+  }
+  body.hovering .cursor { width: 12px; height: 12px; background: var(--accent); }
+  body.hovering .cursor-ring { width: 48px; height: 48px; opacity: 0.3; }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    background: var(--bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  nav.scrolled { border-color: var(--line); }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--ink);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    padding: 80px 48px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(64px, 8vw, 112px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+
+  .hero-title span {
+    display: block;
+    transform: translateY(120%);
+    animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero-title span:nth-child(2) { animation-delay: 0.08s; }
+  .hero-title span:nth-child(3) { animation-delay: 0.16s; font-weight: 300; color: var(--muted); }
+
+  @keyframes slideUp {
+    to { transform: translateY(0); }
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 340px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.6s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .hero-right {
+    padding: 80px 48px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-left: 1px solid var(--line);
+  }
+
+  .projects-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeIn 0.6s ease 0.9s forwards;
+  }
+
+  .project-list { list-style: none; }
+
+  .project-item {
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+  }
+  .project-item:nth-child(1) { animation-delay: 1.0s; }
+  .project-item:nth-child(2) { animation-delay: 1.1s; }
+  .project-item:nth-child(3) { animation-delay: 1.2s; }
+  .project-item:nth-child(4) { animation-delay: 1.3s; }
+  .project-item:nth-child(5) { animation-delay: 1.4s; }
+  .project-item:nth-child(6) { animation-delay: 1.5s; }
+  .project-item:last-child { border-bottom: 1px solid var(--line); }
+
+  .project-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: none;
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    transition: padding-left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .project-btn::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: var(--accent);
+    z-index: 0;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .project-btn:hover::before { width: 4px; }
+  .project-btn:hover { padding-left: 14px; }
+
+  .project-btn-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    transition: letter-spacing 0.3s ease;
+  }
+  .project-btn:hover .project-name { letter-spacing: 0.01em; }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .project-type {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .project-year {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .project-arrow {
+    font-size: 16px;
+    color: var(--muted);
+    transition: transform 0.3s ease, color 0.2s ease;
+  }
+  .project-btn:hover .project-arrow {
+    transform: translateX(5px) rotate(-45deg);
+    color: var(--ink);
+  }
+
+  /* Ticker */
+  .ticker {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 14px 0;
+    background: var(--accent);
+  }
+  .ticker-track {
+    display: inline-flex;
+    animation: ticker 22s linear infinite;
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 20px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .ticker-dot { width: 4px; height: 4px; background: var(--ink); border-radius: 50%; }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Modal overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .modal-overlay.open {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(26,25,22,0.5);
+    backdrop-filter: blur(6px);
+  }
+
+  .modal {
+    position: absolute;
+    top: 0; right: 0;
+    width: min(640px, 100vw);
+    height: 100vh;
+    background: var(--panel);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-overlay.open .modal { transform: translateX(0); }
+
+  .modal-header {
+    padding: 36px 40px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: var(--panel);
+    z-index: 1;
+  }
+
+  .modal-close {
+    background: none;
+    border: 1px solid var(--line);
+    cursor: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 8px 16px;
+    color: var(--ink);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .modal-close:hover { background: var(--ink); color: var(--bg); }
+
+  .modal-title-group { flex: 1; }
+  .modal-tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .modal-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .modal-body { padding: 40px; flex: 1; }
+
+  .modal-video-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--ink);
+    margin-bottom: 36px;
+    overflow: hidden;
+    position: relative;
+  }
+  .modal-video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+  }
+  .modal-video-wrap video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+    object-fit: cover;
+    object-position: top;
+    transform: scale(1.18);
+    transform-origin: top center;
+    background: #000;
+  }
+  .modal-preview-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin-bottom: 36px;
+    overflow: hidden;
+    position: relative;
+    background: var(--ink);
+  }
+  .modal-preview-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .modal-preview-wrap:hover img { transform: scale(1.02); }
+  .modal-preview-cta {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--accent);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .modal-preview-cta:hover { background: #d4f570; transform: translateY(-2px); }
+  .modal-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 36px;
+    padding: 12px 20px;
+    border: 1px solid var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .modal-link-btn:hover { background: var(--ink); color: var(--bg); }
+
+  .modal-desc {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .modal-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: 32px;
+  }
+  .modal-spec {
+    background: var(--panel);
+    padding: 18px 20px;
+  }
+  .modal-spec-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .modal-spec-value {
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .modal-tag-pill {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    color: var(--muted);
+    transition: background 0.2s, color 0.2s;
+  }
+  .modal-tag-pill:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  /* About section */
+  .about-section {
+    padding: 100px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    border-top: 1px solid var(--line);
+  }
+
+  .about-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .about-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .about-title em { font-style: italic; }
+
+  .about-body { font-size: 13px; color: var(--muted); line-height: 1.9; }
+  .about-body p + p { margin-top: 16px; }
+
+  .about-right { display: flex; flex-direction: column; gap: 40px; }
+
+  .skills-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .skills-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .skills-list li {
+    font-size: 13px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .skills-list li::before { content: '—'; color: var(--muted); font-size: 10px; }
+
+  .prev-link {
+    position: relative;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .prev-link:hover { border-color: var(--ink); }
+  .prev-preview {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 0;
+    width: 220px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 32px rgba(26,25,22,0.12);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 100;
+    overflow: hidden;
+  }
+  .prev-preview img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .prev-preview-label {
+    padding: 8px 10px;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--line);
+  }
+  .prev-link:hover .prev-preview {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy { font-size: 11px; color: var(--muted); }
+  .footer-contact a {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+  }
+  .footer-contact a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+  .footer-contact a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--line); }
+
+  /* Intersection observer fade-in */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Tablet ── */
+  @media (max-width: 1024px) {
+    nav { padding: 24px 32px; }
+    .hero-left, .hero-right { padding: 80px 32px 60px; }
+    .about-section { padding: 80px 32px; gap: 48px; }
+    footer { padding: 40px 32px; }
+    .project-name { font-size: 22px; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    body { cursor: auto; font-size: 14px; }
+    .cursor, .cursor-ring { display: none; }
+    .project-btn { cursor: pointer; }
+    .modal-close { cursor: pointer; }
+
+    nav {
+      padding: 20px 24px;
+    }
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 10px; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 80px;
+    }
+    .hero-left {
+      padding: 48px 24px 40px;
+      justify-content: flex-start;
+    }
+    .hero-right {
+      padding: 0 24px 48px;
+      border-left: none;
+      border-top: 1px solid var(--line);
+    }
+    .hero-title { margin-bottom: 24px; }
+    .hero-sub { max-width: 100%; }
+
+    .project-name { font-size: 20px; }
+    .project-meta { gap: 10px; }
+    .project-type { display: none; }
+    .project-btn { padding: 18px 0; }
+
+    .about-section {
+      grid-template-columns: 1fr;
+      padding: 60px 24px;
+      gap: 48px;
+    }
+
+    .modal {
+      width: 100vw;
+      height: 100dvh;
+    }
+    .modal-header { padding: 24px; }
+    .modal-title { font-size: 28px; }
+    .modal-body { padding: 24px; }
+    .modal-specs { grid-template-columns: 1fr 1fr; }
+
+    footer {
+      padding: 32px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .prev-preview { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links { display: none; }
+    .project-name { font-size: 18px; }
+    .modal-title { font-size: 24px; }
+    .modal-specs { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Laura Kubiat</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="mailto:kubiatlaura@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<section class="hero" id="work">
+  <div class="hero-left">
+    <h1 class="hero-title">
+      <span>Product</span>
+      <span>Design</span>
+      <span>& Strategy.</span>
+    </h1>
+    <p class="hero-sub">I make complex products feel simple — designing experiences that get out of the way and help people achieve what they came to do.</p>
+  </div>
+  <div class="hero-right">
+    <p class="projects-label">Selected Work — 2024–2026</p>
+    <ul class="project-list" id="projectList">
+
+      <li class="project-item">
+        <button class="project-btn" data-index="0">
+          <div class="project-btn-inner">
+            <span class="project-name">Jobify</span>
+            <div class="project-meta">
+              <span class="project-type">AI Tool</span>
+              <span class="project-year">2025</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </button>
+      </li>
+
+      <li class="project-item">
+        <button class="project-btn" data-index="1">
+          <div class="project-btn-inner">
+            <span class="project-name">Oyjen Capital</span>
+            <div class="project-meta">
+              <span class="project-type">Website</span>
+              <span class="project-year">2026</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </button>
+      </li>
+
+      <li class="project-item">
+        <button class="project-btn" data-index="2">
+          <div class="project-btn-inner">
+            <span class="project-name">ENCOMIA</span>
+            <div class="project-meta">
+              <span class="project-type">Webapp</span>
+              <span class="project-year">2025</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </button>
+      </li>
+
+      <li class="project-item">
+        <button class="project-btn" data-index="3">
+          <div class="project-btn-inner">
+            <span class="project-name">Jaja Clinic</span>
+            <div class="project-meta">
+              <span class="project-type">Mobile App</span>
+              <span class="project-year">2024</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </button>
+      </li>
+
+      <li class="project-item">
+        <button class="project-btn" data-index="4">
+          <div class="project-btn-inner">
+            <span class="project-name">Grabby</span>
+            <div class="project-meta">
+              <span class="project-type">Mobile App</span>
+              <span class="project-year">2023</span>
+              <span class="project-arrow">↗</span>
+            </div>
+          </div>
+        </button>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item">Product Design <span class="ticker-dot"></span></span>
+    <span class="ticker-item">UX Research <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Systems Thinking <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Interaction Design <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Prototyping <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Design Tokens <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mobile Apps <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Web Products <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Product Design <span class="ticker-dot"></span></span>
+    <span class="ticker-item">UX Research <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Systems Thinking <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Interaction Design <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Prototyping <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Design Tokens <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mobile Apps <span class="ticker-dot"></span></span>
+    <span class="ticker-item">Web Products <span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<section class="about-section reveal" id="about">
+  <div class="about-left">
+    <p class="about-label">About</p>
+    <h2 class="about-title">Designing at the edge of <em>clarity.</em></h2>
+    <div class="about-body">
+      <p>I'm a product designer with 3 years of experience crafting digital products across health, logistics, fintech, and consumer apps.</p>
+      <p>I believe great design is invisible — it dissolves into the experience, leaving only the feeling that something just works.</p>
+      <p>Currently open to full-time roles and select freelance projects.</p>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="skills-block">
+      <p class="skills-label">Craft</p>
+      <ul class="skills-list">
+        <li>Product Strategy & Vision</li>
+        <li>End-to-End UX Design</li>
+        <li>Design Systems</li>
+        <li>Mobile & Responsive Interfaces</li>
+        <li>User Research & Testing</li>
+        <li>Figma, Framer, Protopie</li>
+      </ul>
+    </div>
+    <div class="skills-block">
+      <p class="skills-label">Previously</p>
+      <ul class="skills-list">
+        <li>
+          <a class="prev-link" href="https://www.obiri.ng" target="_blank" rel="noopener noreferrer">
+            Lead Designer — Obiri
+            <span class="prev-preview">
+              <img src="https://image.thum.io/get/width/440/crop/260/https://www.obiri.ng" alt="Obiri preview" loading="lazy">
+              <span class="prev-preview-label">obiri.ng ↗</span>
+            </span>
+          </a>
+        </li>
+        <li>UX Designer — LPI Innovation Hub</li>
+        <li>Product Design Intern — IITA</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">© 2025 Laura Kubiat</p>
+  <div class="footer-contact">
+    <a href="mailto:kubiatlaura@gmail.com">kubiatlaura@gmail.com</a>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <p class="modal-tag" id="modalTag"></p>
+        <h2 class="modal-title" id="modalTitle"></h2>
+      </div>
+      <button class="modal-close" id="modalClose">Close ×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-video-wrap">
+        <iframe id="modalVideo" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <video id="modalVideoLocal" controls playsinline autoplay muted loop style="display:none;"></video>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-specs" id="modalSpecs"></div>
+      <div class="modal-tags" id="modalTagPills"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// — Project data — replace video URLs with your actual YouTube/Vimeo embed links
+const projects = [
+  {
+    name: "Jobify",
+    type: "AI Tool",
+    year: "2025",
+    role: "Product Designer",
+    duration: "—",
+    video: "../../../Documents/screen-recorder-fri-mar-27-2026-03-25-37.webm",
+    desc: "Jobify is an AI-powered CV generator that converts voice into formatted, job-ready resumes. The core challenge was designing a voice-first experience that felt natural and reliable — even when inputs were unclear.\n\n— Built structured fallback states for failed or unclear voice inputs\n— Designed for minimal cognitive load: speak, review, export\n— Improved accessibility for visually-disabled users and those who prefer voice interaction\n— Validated voice as a practical layer on top of traditional job application UI",
+    tags: ["AI", "Voice UX", "Accessibility", "Web App", "Figma"]
+  },
+  {
+    name: "Oyjen Capital",
+    type: "Website",
+    year: "2026",
+    role: "Product Designer",
+    duration: "—",
+    video: "../../../Documents/screen-recorder-fri-mar-27-2026-02-30-18.webm",
+    link: "https://oyjencapital.com/",
+    desc: "OYJEN Capital connects institutional investors with structured U.S.–Africa investment opportunities across energy, logistics, digital infrastructure, and resource sectors. The design challenge was translating a complex financial proposition into a site that feels authoritative without being inaccessible — built around three service pillars and serving stakeholders across New York, Lagos, and Nairobi. As they put it: capital does not move on narrative. It moves on structure.",
+    tags: ["Web Design", "Figma", "Branding", "Finance", "Editorial"]
+  },
+  {
+    name: "ENCOMIA",
+    type: "Webapp",
+    year: "2025",
+    role: "Product Designer",
+    duration: "—",
+    video: "../../../Documents/screen-recorder-fri-mar-27-2026-02-51-53.webm",
+    link: "https://encomia.vercel.app/",
+    desc: "ENCOMIA is an online self-service printing platform for businesses — offering 200+ print products with next-day dispatch and a free in-browser designer. The design challenge was simplifying a wide, complex product catalogue into a fast, intuitive ordering flow. From business cards to custom packaging, the experience needed to make professional printing feel as easy as any everyday online order.",
+    tags: ["Web App", "Figma", "UX", "Design System"]
+  },
+  {
+    name: "Jaja Clinic",
+    type: "Mobile App",
+    year: "2024",
+    role: "Product Designer",
+    duration: "—",
+    video: "../../../Documents/screen-recorder-fri-mar-27-2026-03-11-44.webm",
+    link: "https://www.behance.net/gallery/212534073/Jaja-Clinic-Transforming-university-healthcare",
+    desc: "Jaja Clinic is a redesign of a university healthcare system's digital experience. The project tackled the gap between outdated clinic processes and what modern students actually expect from healthcare — reducing friction at every touchpoint from appointment booking to follow-up, and making care feel genuinely accessible rather than something to navigate around.",
+    tags: ["iOS", "Android", "Healthcare UX", "Figma", "Protopie"]
+  },
+  {
+    name: "Grabby",
+    type: "Mobile App",
+    year: "2023",
+    role: "Product Designer",
+    duration: "—",
+    video: "",
+    link: "https://www.behance.net/gallery/148618049/Grabby",
+    desc: "Grabby is a mobile app designed and built collaboratively by a team of seven designers. The project explored how to create a fast, friction-free mobile experience — prioritising speed, clarity, and ease of use. View the full case study on Behance for the complete process and outcomes.",
+    tags: ["iOS", "Mobile", "Figma", "UX", "Case Study"]
+  }
+];
+
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+function animCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// Nav scroll state
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Modal
+const overlay = document.getElementById('modalOverlay');
+const modalTitle = document.getElementById('modalTitle');
+const modalTag = document.getElementById('modalTag');
+const modalVideo = document.getElementById('modalVideo');
+const modalDesc = document.getElementById('modalDesc');
+const modalSpecs = document.getElementById('modalSpecs');
+const modalTagPills = document.getElementById('modalTagPills');
+
+function openModal(i) {
+  const p = projects[i];
+  modalTag.textContent = p.type + ' — ' + p.year;
+  modalTitle.textContent = p.name;
+  const videoWrap = document.querySelector('.modal-video-wrap');
+  const existingPreview = document.querySelector('.modal-preview-wrap');
+  const existingLinkBtn = document.querySelector('.modal-link-btn');
+  if (existingPreview) existingPreview.remove();
+  if (existingLinkBtn) existingLinkBtn.remove();
+  const modalVideoLocal = document.getElementById('modalVideoLocal');
+  const isLocal = p.video && /\.(webm|mp4|mov|avi)$/i.test(p.video);
+  modalVideo.style.display = 'none';
+  modalVideo.src = '';
+  modalVideoLocal.style.display = 'none';
+  modalVideoLocal.src = '';
+  if (p.video && !isLocal) {
+    modalVideo.src = p.video;
+    modalVideo.style.display = 'block';
+    videoWrap.style.display = '';
+  } else if (p.video && isLocal) {
+    modalVideoLocal.src = p.video;
+    modalVideoLocal.style.display = 'block';
+    videoWrap.style.display = '';
+    modalVideoLocal.onloadedmetadata = () => { modalVideoLocal.playbackRate = 2.0; };
+    if (p.link) {
+      const cta = document.createElement('a');
+      cta.href = p.link;
+      cta.target = '_blank';
+      cta.rel = 'noopener noreferrer';
+      cta.className = 'modal-preview-cta';
+      cta.textContent = 'View Live ↗';
+      videoWrap.appendChild(cta);
+    }
+  } else if (p.link) {
+    videoWrap.style.display = 'none';
+    const wrap = document.createElement('div');
+    wrap.className = 'modal-preview-wrap';
+    const img = document.createElement('img');
+    img.src = `https://image.thum.io/get/width/880/crop/520/${p.link}`;
+    img.alt = `${p.name} preview`;
+    img.loading = 'lazy';
+    const cta = document.createElement('a');
+    cta.href = p.link;
+    cta.target = '_blank';
+    cta.rel = 'noopener noreferrer';
+    cta.className = 'modal-preview-cta';
+    cta.textContent = 'View Live ↗';
+    wrap.appendChild(img);
+    wrap.appendChild(cta);
+    videoWrap.after(wrap);
+  } else {
+    videoWrap.style.display = 'none';
+  }
+  modalDesc.innerHTML = p.desc.replace(/\n/g, '<br>');
+  modalSpecs.innerHTML = `
+    <div class="modal-spec"><p class="modal-spec-label">Role</p><p class="modal-spec-value">${p.role}</p></div>
+    <div class="modal-spec"><p class="modal-spec-label">Year</p><p class="modal-spec-value">${p.year}</p></div>
+    <div class="modal-spec"><p class="modal-spec-label">Type</p><p class="modal-spec-value">${p.type}</p></div>
+    <div class="modal-spec"><p class="modal-spec-label">Duration</p><p class="modal-spec-value">${p.duration}</p></div>
+  `;
+  modalTagPills.innerHTML = p.tags.map(t => `<span class="modal-tag-pill">${t}</span>`).join('');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    modalVideo.src = '';
+    document.getElementById('modalVideoLocal').src = '';
+    const existingCta = document.querySelector('.modal-video-wrap .modal-preview-cta');
+    if (existingCta) existingCta.remove();
+    const prev = document.querySelector('.modal-preview-wrap');
+    if (prev) prev.remove();
+  }, 500);
+}
+
+document.querySelectorAll('.project-btn').forEach(btn => {
+  btn.addEventListener('click', () => openModal(+btn.dataset.index));
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalBackdrop').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
