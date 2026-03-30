@@ -658,6 +658,73 @@
   }
   .footer-contact a:hover::after { transform: scaleX(1); transform-origin: left; }
 
+  /* Track numbers */
+  .project-name-group {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+  }
+  .track-num {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 400;
+    min-width: 20px;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+    padding-top: 2px;
+  }
+  .project-btn:hover .track-num { color: var(--ink); }
+
+  /* Hero label */
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeIn 0.6s ease 0.1s forwards;
+  }
+  .hero-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--muted);
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Availability status dot */
+  .status-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .status-dot::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #72d672;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    animation: pulse-dot 2.8s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+
+  /* Beyond section items */
+  .beyond-list li { color: var(--muted); }
+  .beyond-list li::before { content: '·'; font-size: 14px; }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -764,21 +831,25 @@
 
 <section class="hero" id="work">
   <div class="hero-left">
+    <p class="hero-label">Product Design & Strategy</p>
     <h1 class="hero-title">
       <span>Product</span>
       <span>Design</span>
       <span>& Strategy.</span>
     </h1>
-    <p class="hero-sub">I make complex products feel simple — designing experiences that get out of the way and help people achieve what they came to do.</p>
+    <p class="hero-sub">I make complex products feel simple — designing with intention so people can focus on what actually matters.</p>
   </div>
   <div class="hero-right">
-    <p class="projects-label">Selected Work — 2024–2026</p>
+    <p class="projects-label">Selected Works — Vol. I</p>
     <ul class="project-list" id="projectList">
 
       <li class="project-item">
         <button class="project-btn" data-index="0">
           <div class="project-btn-inner">
-            <span class="project-name">Jobify</span>
+            <div class="project-name-group">
+              <span class="track-num">01</span>
+              <span class="project-name">Jobify</span>
+            </div>
             <div class="project-meta">
               <span class="project-type">AI Tool</span>
               <span class="project-year">2025</span>
@@ -791,7 +862,10 @@
       <li class="project-item">
         <button class="project-btn" data-index="1">
           <div class="project-btn-inner">
-            <span class="project-name">Oyjen Capital</span>
+            <div class="project-name-group">
+              <span class="track-num">02</span>
+              <span class="project-name">Oyjen Capital</span>
+            </div>
             <div class="project-meta">
               <span class="project-type">Website</span>
               <span class="project-year">2026</span>
@@ -804,7 +878,10 @@
       <li class="project-item">
         <button class="project-btn" data-index="2">
           <div class="project-btn-inner">
-            <span class="project-name">ENCOMIA</span>
+            <div class="project-name-group">
+              <span class="track-num">03</span>
+              <span class="project-name">ENCOMIA</span>
+            </div>
             <div class="project-meta">
               <span class="project-type">Webapp</span>
               <span class="project-year">2025</span>
@@ -817,7 +894,10 @@
       <li class="project-item">
         <button class="project-btn" data-index="3">
           <div class="project-btn-inner">
-            <span class="project-name">Jaja Clinic</span>
+            <div class="project-name-group">
+              <span class="track-num">04</span>
+              <span class="project-name">Jaja Clinic</span>
+            </div>
             <div class="project-meta">
               <span class="project-type">Mobile App</span>
               <span class="project-year">2024</span>
@@ -830,7 +910,10 @@
       <li class="project-item">
         <button class="project-btn" data-index="4">
           <div class="project-btn-inner">
-            <span class="project-name">Grabby</span>
+            <div class="project-name-group">
+              <span class="track-num">05</span>
+              <span class="project-name">Grabby</span>
+            </div>
             <div class="project-meta">
               <span class="project-type">Mobile App</span>
               <span class="project-year">2023</span>
@@ -868,11 +951,11 @@
 <section class="about-section reveal" id="about">
   <div class="about-left">
     <p class="about-label">About</p>
-    <h2 class="about-title">Designing at the edge of <em>clarity.</em></h2>
+    <h2 class="about-title">Clarity isn't a style.<br><em>It's a decision.</em></h2>
     <div class="about-body">
-      <p>I'm a product designer with 3 years of experience crafting digital products across health, logistics, fintech, and consumer apps.</p>
-      <p>I believe great design is invisible — it dissolves into the experience, leaving only the feeling that something just works.</p>
-      <p>Currently open to full-time roles and select freelance projects.</p>
+      <p>I'm a product designer with 3 years of experience across health, logistics, fintech, and consumer apps — working where complexity meets real users.</p>
+      <p>I think in systems but design for people. My process starts with understanding the problem deeply before touching a frame — because the best interfaces don't demand attention, they quietly earn it.</p>
+      <p>Currently open to full-time roles and select freelance work.</p>
     </div>
   </div>
   <div class="about-right">
@@ -885,6 +968,14 @@
         <li>Mobile & Responsive Interfaces</li>
         <li>User Research & Testing</li>
         <li>Figma, Framer, Protopie</li>
+      </ul>
+    </div>
+    <div class="skills-block">
+      <p class="skills-label">Beyond the Screen</p>
+      <ul class="skills-list beyond-list">
+        <li>Drawn to structure in unexpected places</li>
+        <li>Finds clarity in music, architecture, and motion</li>
+        <li>Obsessed with the moment something just clicks</li>
       </ul>
     </div>
     <div class="skills-block">
@@ -907,7 +998,10 @@
 </section>
 
 <footer>
-  <p class="footer-copy">© 2025 Laura Kubiat</p>
+  <div>
+    <p class="footer-copy">© 2026 Laura Kubiat</p>
+    <p class="status-dot" style="margin-top:8px;">Open to opportunities</p>
+  </div>
   <div class="footer-contact">
     <a href="mailto:kubiatlaura@gmail.com">kubiatlaura@gmail.com</a>
   </div>
