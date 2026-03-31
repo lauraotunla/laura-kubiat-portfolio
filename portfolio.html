@@ -33,35 +33,25 @@
     overflow-x: hidden;
   }
 
-  /* Scroll progress */
   .scroll-progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    width: 0%;
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0%;
     background: var(--accent);
     z-index: 9999;
     transition: width 0.08s linear;
   }
 
-  /* Cursor */
   .cursor {
-    position: fixed;
-    width: 8px; height: 8px;
-    background: var(--ink);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
+    position: fixed; width: 8px; height: 8px;
+    background: var(--ink); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
     transform: translate(-50%,-50%);
     transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
   }
   .cursor-ring {
-    position: fixed;
-    width: 32px; height: 32px;
-    border: 1px solid var(--ink);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9997;
+    position: fixed; width: 32px; height: 32px;
+    border: 1px solid var(--ink); border-radius: 50%;
+    pointer-events: none; z-index: 9997;
     transform: translate(-50%,-50%);
     transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
     opacity: 0.5;
@@ -71,371 +61,174 @@
 
   /* Nav */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
     padding: 28px 48px;
     transition: background 0.3s ease, border-color 0.3s ease;
     border-bottom: 1px solid transparent;
   }
-  nav.scrolled {
-    background: var(--bg);
-    border-color: var(--line);
-  }
-
+  nav.scrolled { background: var(--bg); border-color: var(--line); }
   .nav-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 17px;
-    font-weight: 300;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    color: var(--bg);
+    font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 300;
+    letter-spacing: 0.02em; text-decoration: none; color: var(--bg);
     transition: color 0.3s ease;
   }
   nav.scrolled .nav-logo { color: var(--ink); }
-
   .nav-links { display: flex; gap: 36px; }
   .nav-links a {
-    text-decoration: none;
-    color: rgba(245,244,240,0.55);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    position: relative;
-    transition: color 0.2s ease;
+    text-decoration: none; color: rgba(245,244,240,0.55);
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    position: relative; transition: color 0.2s ease;
   }
   nav.scrolled .nav-links a { color: var(--muted); }
   .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; left: 0;
-    width: 0; height: 1px;
-    background: currentColor;
-    transition: width 0.3s ease;
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 0; height: 1px; background: currentColor; transition: width 0.3s ease;
   }
   .nav-links a:hover { color: var(--bg); }
   nav.scrolled .nav-links a:hover { color: var(--ink); }
   .nav-links a:hover::after { width: 100%; }
 
-  /* ─── HERO ──────────────────────────────────── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 0;
-  }
+  /* ─── HERO ───────────────────────── */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; }
 
-  /* ─── ALBUM COVER PANEL (left) ──────────────── */
+  /* ─── ALBUM COVER PANEL ─────────── */
   .hero-left {
-    background: #070705;
-    padding: 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
+    background: #070705; padding: 48px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden; min-height: 100vh;
   }
 
-  /* Artwork layer — SVG handles all texture/illustration */
   .cover-artwork {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
+    position: absolute; inset: 0; z-index: 0;
+    pointer-events: none; overflow: hidden;
   }
-  .cover-artwork svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  .cover-artwork svg { width: 100%; height: 100%; display: block; }
 
-  /* Fine grain overlay on top of artwork */
   .hero-left::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
-    background-size: 140px;
-    opacity: 0.04;
-    pointer-events: none;
-    z-index: 1;
-    mix-blend-mode: overlay;
+    background-size: 140px; opacity: 0.04; pointer-events: none;
+    z-index: 1; mix-blend-mode: overlay;
   }
 
   /* Corner crop marks */
   .cover-marks {
-    position: absolute;
-    inset: 22px;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    animation: fadeIn 0.5s ease 1.5s forwards;
+    position: absolute; inset: 22px; pointer-events: none; z-index: 2;
+    opacity: 0; animation: fadeIn 0.5s ease 1.5s forwards;
   }
-  .mark {
-    position: absolute;
-    width: 14px; height: 14px;
-  }
-  .mark-tl { top: 0; left: 0; border-top: 1px solid rgba(245,244,240,0.18); border-left: 1px solid rgba(245,244,240,0.18); }
-  .mark-tr { top: 0; right: 0; border-top: 1px solid rgba(245,244,240,0.18); border-right: 1px solid rgba(245,244,240,0.18); }
-  .mark-bl { bottom: 0; left: 0; border-bottom: 1px solid rgba(245,244,240,0.18); border-left: 1px solid rgba(245,244,240,0.18); }
-  .mark-br { bottom: 0; right: 0; border-bottom: 1px solid rgba(245,244,240,0.18); border-right: 1px solid rgba(245,244,240,0.18); }
+  .mark { position: absolute; width: 14px; height: 14px; }
+  .mark-tl { top:0;left:0; border-top:1px solid rgba(245,244,240,0.2); border-left:1px solid rgba(245,244,240,0.2); }
+  .mark-tr { top:0;right:0; border-top:1px solid rgba(245,244,240,0.2); border-right:1px solid rgba(245,244,240,0.2); }
+  .mark-bl { bottom:0;left:0; border-bottom:1px solid rgba(245,244,240,0.2); border-left:1px solid rgba(245,244,240,0.2); }
+  .mark-br { bottom:0;right:0; border-bottom:1px solid rgba(245,244,240,0.2); border-right:1px solid rgba(245,244,240,0.2); }
 
-  /* Cover top: discipline + vol */
+  /* Cover top */
   .cover-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative; z-index: 1;
-    opacity: 0;
-    animation: fadeIn 0.5s ease 0.1s forwards;
-    padding-top: 56px; /* nav clearance */
+    display: flex; justify-content: space-between; align-items: flex-start;
+    position: relative; z-index: 3;
+    opacity: 0; animation: fadeIn 0.5s ease 0.1s forwards;
+    padding-top: 56px;
   }
-  .cover-discipline {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(245,244,240,0.38);
-  }
-  .cover-vol {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,244,240,0.22);
-  }
+  .cover-discipline { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,244,240,0.4); }
+  .cover-vol { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,244,240,0.22); }
 
-  /* Cover center: artist name + album title */
+  /* Cover center — big statement */
   .cover-center {
-    position: relative; z-index: 1;
-    opacity: 0;
-    animation: fadeIn 0.4s ease 0.25s forwards;
+    position: relative; z-index: 3;
+    opacity: 0; animation: fadeIn 0.4s ease 0.25s forwards;
   }
   .cover-artist {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(58px, 7vw, 104px);
-    font-weight: 300;
-    line-height: 0.93;
-    letter-spacing: -0.03em;
-    color: var(--bg);
-    overflow: hidden;
-    margin-bottom: 22px;
+    font-size: clamp(28px, 3.8vw, 52px);
+    font-weight: 300; line-height: 1.1;
+    letter-spacing: -0.02em; color: var(--bg);
+    overflow: hidden; margin-bottom: 18px;
   }
   .cover-artist span {
-    display: block;
-    transform: translateY(120%);
+    display: block; transform: translateY(120%);
     animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  .cover-artist span:nth-child(2) { animation-delay: 0.08s; }
+  .cover-artist span:nth-child(2) { animation-delay: 0.08s; color: rgba(245,244,240,0.75); }
 
   .cover-subtitle {
-    font-size: 10px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--accent); display: flex; align-items: center; gap: 14px;
   }
   .cover-subtitle::before {
-    content: '';
-    width: 22px; height: 1px;
-    background: var(--accent);
-    opacity: 0.65;
-    display: block;
-    flex-shrink: 0;
+    content: ''; width: 22px; height: 1px; background: var(--accent);
+    opacity: 0.65; display: block; flex-shrink: 0;
   }
 
-  /* Cover bottom: tagline + catalog bar */
+  /* Cover bottom */
   .cover-bottom {
-    position: relative; z-index: 1;
-    opacity: 0;
-    animation: fadeIn 0.6s ease 0.85s forwards;
-  }
-  .cover-desc {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(18px, 2.2vw, 26px);
-    color: rgba(245,244,240,0.82);
-    line-height: 1.3;
-    max-width: 340px;
-    margin-bottom: 12px;
-    font-weight: 300;
-    letter-spacing: -0.01em;
-  }
-  .cover-desc-sub {
-    font-size: 11px;
-    color: rgba(245,244,240,0.32);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
+    position: relative; z-index: 3;
+    opacity: 0; animation: fadeIn 0.6s ease 0.85s forwards;
   }
   .cover-meta-bar {
-    padding-top: 18px;
-    border-top: 1px solid rgba(245,244,240,0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    padding-top: 18px; border-top: 1px solid rgba(245,244,240,0.1);
+    display: flex; align-items: center; gap: 10px;
   }
-  .cover-meta-bar span {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,244,240,0.28);
-  }
-  .cover-meta-dot {
-    width: 3px; height: 3px;
-    background: rgba(245,244,240,0.18);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .cover-meta-bar span { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,244,240,0.28); }
+  .cover-meta-dot { width: 3px; height: 3px; background: rgba(245,244,240,0.18); border-radius: 50%; flex-shrink: 0; }
 
   @keyframes slideUp { to { transform: translateY(0); } }
   @keyframes fadeIn  { to { opacity: 1; } }
 
-  /* ─── TRACKLIST PANEL (right) ───────────────── */
+  /* ─── TRACKLIST PANEL ───────────── */
   .hero-right {
     padding: 0 48px 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: flex; flex-direction: column; justify-content: space-between;
     border-left: 1px solid var(--line);
   }
 
-  /* ─── VINYL / ALBUM ART SECTION ─────────────── */
+  /* Vinyl + album info */
   .album-art-section {
     padding-top: 80px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    opacity: 0;
-    animation: fadeIn 0.6s ease 0.5s forwards;
+    display: flex; align-items: center; gap: 24px;
+    opacity: 0; animation: fadeIn 0.6s ease 0.5s forwards;
     flex-shrink: 0;
   }
-
-  .vinyl-wrap {
-    width: 120px;
-    height: 120px;
-    flex-shrink: 0;
-    position: relative;
-  }
-
-  .vinyl-svg {
-    width: 100%;
-    height: 100%;
-    animation: spinVinyl 18s linear infinite;
-    display: block;
-  }
-  @keyframes spinVinyl {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+  .vinyl-wrap { width: 120px; height: 120px; flex-shrink: 0; position: relative; }
+  .vinyl-svg { width: 100%; height: 100%; animation: spinVinyl 18s linear infinite; display: block; }
+  @keyframes spinVinyl { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
   .album-info { flex: 1; min-width: 0; }
-
   .album-info-tag {
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
   }
   .album-info-tag::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: block;
-    flex-shrink: 0;
+    content: ''; width: 6px; height: 6px; background: var(--accent);
+    border-radius: 50%; display: block; flex-shrink: 0;
     animation: pulse-dot 2s ease-in-out infinite;
   }
-
-  .album-info-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 22px;
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    line-height: 1.1;
-    margin-bottom: 4px;
-  }
-
-  .album-info-artist {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  .album-info-quote {
-    margin-top: 14px;
-    font-size: 11px;
-    color: var(--muted);
-    font-style: italic;
-    line-height: 1.6;
-    padding-left: 12px;
-    border-left: 2px solid var(--accent);
-  }
+  .album-info-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 300; letter-spacing: -0.01em; color: var(--ink); line-height: 1.1; margin-bottom: 4px; }
+  .album-info-artist { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+  .album-info-quote { margin-top: 14px; font-size: 11px; color: var(--muted); font-style: italic; line-height: 1.6; padding-left: 12px; border-left: 2px solid var(--accent); }
 
   /* Tracklist header */
   .tracklist-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--ink);
-    margin-bottom: 0;
-    opacity: 0;
-    animation: fadeIn 0.5s ease 0.9s forwards;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid var(--ink);
+    opacity: 0; animation: fadeIn 0.5s ease 0.9s forwards;
   }
-  .tracklist-side {
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .tracklist-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--ink);
-    text-transform: uppercase;
-  }
-  .tracklist-count {
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+  .tracklist-side { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .tracklist-title { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 300; letter-spacing: 0.1em; color: var(--ink); text-transform: uppercase; }
+  .tracklist-count { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 
-  /* Column label row */
   .tracklist-cols {
-    display: grid;
-    grid-template-columns: 32px 1fr 72px 30px;
-    gap: 0 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-    opacity: 0;
-    animation: fadeIn 0.5s ease 1.0s forwards;
+    display: grid; grid-template-columns: 32px 1fr 72px 30px;
+    gap: 0 12px; padding: 10px 0; border-bottom: 1px solid var(--line);
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    opacity: 0; animation: fadeIn 0.5s ease 1.0s forwards;
   }
   .tracklist-cols span:last-child { text-align: right; }
 
   /* Project list */
   .project-list { list-style: none; }
-
-  .project-item {
-    border-bottom: 1px solid var(--line);
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-  }
+  .project-item { border-bottom: 1px solid var(--line); opacity: 0; animation: fadeIn 0.5s ease forwards; }
   .project-item:nth-child(1) { animation-delay: 1.05s; }
   .project-item:nth-child(2) { animation-delay: 1.15s; }
   .project-item:nth-child(3) { animation-delay: 1.25s; }
@@ -443,419 +236,230 @@
   .project-item:nth-child(5) { animation-delay: 1.45s; }
 
   .project-btn {
-    width: 100%;
-    background: none;
-    border: none;
-    cursor: none;
+    width: 100%; background: none; border: none; cursor: none;
     padding: 18px 0;
-    display: grid;
-    grid-template-columns: 32px 1fr 72px 36px 20px;
-    gap: 0 12px;
-    align-items: center;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
+    display: grid; grid-template-columns: 32px 1fr 72px 36px 20px;
+    gap: 0 12px; align-items: center; text-align: left;
+    position: relative; overflow: hidden;
     transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
-  /* Full-row accent tint on hover */
   .project-btn::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 0;
-    background: rgba(200, 240, 96, 0.09);
-    z-index: 0;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0; background: rgba(200, 240, 96, 0.09); z-index: 0;
     transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .project-btn:hover::before { width: 100%; }
-
-  /* Left accent bar */
   .project-btn::after {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 0;
-    background: var(--accent);
-    z-index: 1;
-    transition: width 0.25s ease;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0; background: var(--accent); z-index: 1; transition: width 0.25s ease;
   }
   .project-btn:hover::after { width: 2px; }
 
-  /* Track indicator: number → waveform */
-  .track-indicator {
-    position: relative;
-    width: 32px;
-    height: 14px;
-    flex-shrink: 0;
-    z-index: 1;
-  }
-
+  .track-indicator { position: relative; width: 32px; height: 14px; flex-shrink: 0; z-index: 1; }
   .track-num {
-    position: absolute;
-    top: 50%; left: 0;
-    transform: translateY(-50%);
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    font-weight: 400;
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
+    position: absolute; top: 50%; left: 0; transform: translateY(-50%);
+    font-size: 10px; letter-spacing: 0.06em; color: var(--muted); font-weight: 400;
+    transition: opacity 0.2s ease; white-space: nowrap; font-variant-numeric: tabular-nums;
   }
   .project-btn:hover .track-num { opacity: 0; }
 
-  /* Waveform bars */
   .waveform {
-    position: absolute;
-    top: 50%; left: 0;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    position: absolute; top: 50%; left: 0; transform: translateY(-50%);
+    display: flex; align-items: center; gap: 2px; opacity: 0; transition: opacity 0.2s ease;
   }
   .project-btn:hover .waveform { opacity: 1; }
-
-  .waveform span {
-    display: block;
-    width: 2px;
-    background: var(--accent);
-    border-radius: 1px;
-    animation: wave 0.65s ease-in-out infinite alternate;
-  }
+  .waveform span { display: block; width: 2px; background: var(--accent); border-radius: 1px; animation: wave 0.65s ease-in-out infinite alternate; }
   .waveform span:nth-child(1) { height: 4px;  animation-delay: 0s; }
   .waveform span:nth-child(2) { height: 10px; animation-delay: 0.09s; }
   .waveform span:nth-child(3) { height: 14px; animation-delay: 0.18s; }
   .waveform span:nth-child(4) { height: 8px;  animation-delay: 0.13s; }
   .waveform span:nth-child(5) { height: 5px;  animation-delay: 0.04s; }
+  @keyframes wave { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
 
-  @keyframes wave {
-    from { transform: scaleY(0.35); }
-    to   { transform: scaleY(1); }
-  }
-
-  /* Name cell */
   .project-name-group {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    min-width: 0;
-    position: relative;
-    z-index: 1;
-    transform: translateX(0);
-    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex; align-items: center; min-width: 0;
+    position: relative; z-index: 1;
+    transform: translateX(0); transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .project-btn:hover .project-name-group { transform: translateX(8px); }
 
   .project-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 24px;
-    font-weight: 300;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-    transition: letter-spacing 0.3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 300;
+    color: var(--ink); letter-spacing: -0.01em; transition: letter-spacing 0.3s ease;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .project-btn:hover .project-name { letter-spacing: 0.005em; }
 
-  /* Type cell */
-  .project-type {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-align: left;
-    position: relative;
-    z-index: 1;
-    transition: color 0.2s ease;
-  }
+  .project-type { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: left; position: relative; z-index: 1; transition: color 0.2s ease; }
   .project-btn:hover .project-type { color: var(--ink); }
 
-  /* Duration cell — always visible now, accent on hover */
-  .track-duration {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    font-variant-numeric: tabular-nums;
-    text-align: right;
-    position: relative;
-    z-index: 1;
-    transition: color 0.2s ease, opacity 0.2s ease;
-    opacity: 0.5;
-  }
+  .track-duration { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; text-align: right; position: relative; z-index: 1; transition: color 0.2s ease, opacity 0.2s ease; opacity: 0.5; }
   .project-btn:hover .track-duration { color: var(--ink); opacity: 1; }
 
-  /* Arrow cell */
-  .project-arrow {
-    font-size: 14px;
-    color: var(--muted);
-    text-align: right;
-    transition: transform 0.3s ease, color 0.2s ease;
-    position: relative;
-    z-index: 1;
-  }
-  .project-btn:hover .project-arrow {
-    transform: rotate(-45deg) translateX(2px);
-    color: var(--ink);
-  }
+  .project-arrow { font-size: 14px; color: var(--muted); text-align: right; transition: transform 0.3s ease, color 0.2s ease; position: relative; z-index: 1; }
+  .project-btn:hover .project-arrow { transform: rotate(-45deg) translateX(2px); color: var(--ink); }
 
   /* Ticker */
-  .ticker {
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 14px 0;
-    background: var(--accent);
-  }
-  .ticker-track {
-    display: inline-flex;
-    animation: ticker 22s linear infinite;
-  }
-  .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    padding: 0 20px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    font-weight: 400;
-  }
+  .ticker { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 14px 0; background: var(--accent); }
+  .ticker-track { display: inline-flex; animation: ticker 22s linear infinite; }
+  .ticker-item { display: inline-flex; align-items: center; gap: 16px; padding: 0 20px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); font-weight: 400; }
   .ticker-dot { width: 4px; height: 4px; background: var(--ink); border-radius: 50%; }
-  @keyframes ticker {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-  /* Modal */
+  /* ─── MODAL — SPOTIFY TRACK PAGE ─────────────── */
   .modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    position: fixed; inset: 0; z-index: 200;
+    pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
   }
   .modal-overlay.open { pointer-events: all; opacity: 1; }
 
-  .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(26,25,22,0.5);
-    backdrop-filter: blur(6px);
-  }
+  .modal-backdrop { position: absolute; inset: 0; background: rgba(26,25,22,0.55); backdrop-filter: blur(8px); }
 
   .modal {
-    position: absolute;
-    top: 0; right: 0;
-    width: min(640px, 100vw);
-    height: 100vh;
-    background: var(--panel);
-    overflow-y: auto;
+    position: absolute; top: 0; right: 0;
+    width: min(640px, 100vw); height: 100vh;
+    background: var(--panel); overflow-y: auto;
     transform: translateX(100%);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
   }
   .modal-overlay.open .modal { transform: translateX(0); }
 
-  /* Now playing band */
-  .modal-now-playing {
-    padding: 10px 40px;
-    background: var(--ink);
-    color: var(--accent);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
+  /* ── Spotify-style track header ── */
+  .modal-track-header {
+    position: relative; flex-shrink: 0;
+    min-height: 300px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 28px 36px 28px;
   }
-  .modal-now-playing::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
+
+  /* Artwork background */
+  .modal-artwork-bg {
+    position: absolute; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+  .modal-artwork-bg svg { width: 100%; height: 100%; display: block; }
+
+  /* Vignette gradient over artwork */
+  .modal-track-header::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(7,7,5,0.25) 0%,
+      rgba(7,7,5,0.45) 50%,
+      rgba(7,7,5,0.88) 100%
+    );
+  }
+
+  /* Top row: close + now-playing */
+  .modal-header-top {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 36px; z-index: 3;
+  }
+  .modal-now-playing {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); display: flex; align-items: center; gap: 10px;
+  }
+  .modal-np-dot {
+    width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+    flex-shrink: 0; display: block;
     animation: pulse-dot 1.8s ease-in-out infinite;
   }
-
-  .modal-header {
-    padding: 28px 40px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    border-bottom: 1px solid var(--line);
-    position: sticky;
-    top: 0;
-    background: var(--panel);
-    z-index: 1;
-  }
-
   .modal-close {
-    background: none;
-    border: 1px solid var(--line);
-    cursor: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    padding: 8px 16px;
-    color: var(--ink);
-    transition: background 0.2s ease, border-color 0.2s ease;
+    background: rgba(245,244,240,0.08); border: 1px solid rgba(245,244,240,0.15);
+    cursor: none; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; padding: 7px 14px; color: rgba(245,244,240,0.7);
+    letter-spacing: 0.02em;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
-  .modal-close:hover { background: var(--ink); color: var(--bg); }
+  .modal-close:hover { background: rgba(245,244,240,0.18); color: var(--bg); border-color: rgba(245,244,240,0.3); }
 
-  .modal-title-group { flex: 1; }
-  .modal-tag {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
+  /* Track content (inside header, below artwork bg) */
+  .modal-track-content { position: relative; z-index: 2; }
+
+  .modal-type-badge {
+    display: inline-block; margin-bottom: 10px;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(245,244,240,0.5);
+    border: 1px solid rgba(245,244,240,0.15);
+    padding: 4px 10px;
   }
-  .modal-title {
+  .modal-track-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 42px;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: clamp(34px, 5vw, 52px); font-weight: 300; line-height: 1;
+    letter-spacing: -0.02em; color: var(--bg); margin-bottom: 8px;
+  }
+  .modal-track-artist { font-size: 12px; color: rgba(245,244,240,0.5); letter-spacing: 0.04em; margin-bottom: 24px; }
+
+  /* Scrubber */
+  .modal-scrubber {}
+  .modal-scrubber-bar {
+    position: relative; height: 3px;
+    background: rgba(245,244,240,0.15); border-radius: 2px; margin-bottom: 8px;
+  }
+  .modal-scrubber-fill {
+    height: 100%; border-radius: 2px;
+    background: rgba(200,240,96,0.85);
+    position: relative;
+    transition: width 0.3s ease;
+  }
+  .modal-scrubber-dot {
+    position: absolute; right: -5px; top: 50%; transform: translateY(-50%);
+    width: 11px; height: 11px; background: var(--bg); border-radius: 50%;
+  }
+  .modal-scrubber-times {
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: rgba(245,244,240,0.4);
+    font-variant-numeric: tabular-nums; letter-spacing: 0.04em;
   }
 
-  .modal-body { padding: 40px; flex: 1; }
+  /* ── Modal body (light, same content) ── */
+  .modal-body { padding: 36px; flex: 1; background: var(--panel); }
 
   .modal-video-wrap {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: var(--ink);
-    margin-bottom: 36px;
-    overflow: hidden;
-    position: relative;
+    width: 100%; aspect-ratio: 16/9; background: var(--ink);
+    margin-bottom: 32px; overflow: hidden; position: relative;
   }
-  .modal-video-wrap iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none;
-    display: block;
-  }
-  .modal-video-wrap video {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none;
-    display: block;
-    object-fit: cover;
-    object-position: top;
-    transform: scale(1.18);
-    transform-origin: top center;
-    background: #000;
-  }
-  .modal-preview-wrap {
-    width: 100%;
-    aspect-ratio: 16/9;
-    margin-bottom: 36px;
-    overflow: hidden;
-    position: relative;
-    background: var(--ink);
-  }
-  .modal-preview-wrap img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: top;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .modal-preview-wrap:hover img { transform: scale(1.02); }
+  .modal-video-wrap iframe { position: absolute; top:0;left:0; width:100%;height:100%; border:none; display:block; }
+  .modal-video-wrap video { position: absolute; top:0;left:0; width:100%;height:100%; border:none; display:block; object-fit:cover; object-position:top; transform:scale(1.18); transform-origin:top center; background:#000; }
 
+  .modal-preview-wrap { width:100%; aspect-ratio:16/9; margin-bottom:32px; overflow:hidden; position:relative; background:var(--ink); }
+  .modal-preview-wrap img { width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform 0.6s ease; }
+  .modal-preview-wrap:hover img { transform: scale(1.02); }
   .modal-preview-cta {
-    position: absolute;
-    bottom: 16px; right: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: var(--accent);
-    color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
+    position: absolute; bottom: 16px; right: 16px;
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+    background: var(--accent); color: var(--ink);
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
     transition: background 0.2s, transform 0.2s;
   }
   .modal-preview-cta:hover { background: #d4f570; transform: translateY(-2px); }
 
   .modal-link-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 36px;
-    padding: 12px 20px;
-    border: 1px solid var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--ink);
-    transition: background 0.2s, color 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-bottom: 32px; padding: 12px 20px;
+    border: 1px solid var(--ink); font-family: 'DM Sans', sans-serif;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink); transition: background 0.2s, color 0.2s;
   }
   .modal-link-btn:hover { background: var(--ink); color: var(--bg); }
 
-  .modal-desc {
-    font-size: 13px;
-    color: var(--ink);
-    line-height: 1.9;
-    margin-bottom: 32px;
-  }
+  .modal-desc { font-size: 13px; color: var(--ink); line-height: 1.9; margin-bottom: 28px; }
 
-  .modal-specs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    margin-bottom: 32px;
-  }
-  .modal-spec { background: var(--panel); padding: 18px 20px; }
-  .modal-spec-label {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
+  .modal-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 28px; }
+  .modal-spec { background: var(--panel); padding: 16px 20px; }
+  .modal-spec-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
   .modal-spec-value { font-size: 13px; color: var(--ink); }
 
-  .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
-  .modal-tag-pill {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border: 1px solid var(--line);
-    padding: 6px 12px;
-    color: var(--muted);
-    transition: background 0.2s, color 0.2s;
-  }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+  .modal-tag-pill { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--line); padding: 6px 12px; color: var(--muted); transition: background 0.2s, color 0.2s; }
   .modal-tag-pill:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
-  .case-study { display: flex; flex-direction: column; gap: 40px; padding-top: 8px; }
-  .cs-block { border-top: 1px solid var(--line); padding-top: 28px; }
-  .cs-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
+  .case-study { display: flex; flex-direction: column; gap: 36px; padding-top: 4px; }
+  .cs-block { border-top: 1px solid var(--line); padding-top: 24px; }
+  .cs-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
   .cs-text { font-size: 13px; color: var(--ink); line-height: 1.9; }
   .cs-text p + p { margin-top: 12px; }
   .cs-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
@@ -863,163 +467,46 @@
   .cs-list li::before { content: '—'; color: var(--muted); flex-shrink: 0; }
 
   /* About */
-  .about-section {
-    padding: 100px 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    border-top: 1px solid var(--line);
-  }
-
-  .about-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .about-label::before {
-    content: '';
-    width: 16px; height: 1px;
-    background: var(--muted);
-    opacity: 0.5;
-  }
-
-  .about-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 28px;
-  }
+  .about-section { padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-top: 1px solid var(--line); }
+  .about-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+  .about-label::before { content: ''; width: 16px; height: 1px; background: var(--muted); opacity: 0.5; }
+  .about-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 28px; }
   .about-title em { font-style: italic; }
   .about-body { font-size: 13px; color: var(--muted); line-height: 1.9; }
   .about-body p + p { margin-top: 16px; }
-
   .about-right { display: flex; flex-direction: column; gap: 40px; }
-
-  .skills-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-  }
+  .skills-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
   .skills-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
   .skills-list li { font-size: 13px; color: var(--ink); display: flex; align-items: center; gap: 10px; }
   .skills-list li::before { content: '—'; color: var(--muted); font-size: 10px; }
-
   .beyond-list li { color: var(--muted); }
   .beyond-list li::before { content: '·'; font-size: 14px; }
-
-  .prev-link {
-    position: relative;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 1px;
-    transition: border-color 0.2s;
-  }
+  .prev-link { position: relative; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px; transition: border-color 0.2s; }
   .prev-link:hover { border-color: var(--ink); }
-  .prev-preview {
-    position: absolute;
-    bottom: calc(100% + 12px); left: 0;
-    width: 220px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    box-shadow: 0 8px 32px rgba(26,25,22,0.12);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(6px);
-    transition: opacity 0.2s, transform 0.2s;
-    z-index: 100;
-    overflow: hidden;
-  }
+  .prev-preview { position: absolute; bottom: calc(100% + 12px); left: 0; width: 220px; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 8px 32px rgba(26,25,22,0.12); opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s; z-index: 100; overflow: hidden; }
   .prev-preview img { width: 100%; height: 130px; object-fit: cover; object-position: top; display: block; }
   .prev-preview-label { padding: 8px 10px; font-size: 10px; color: var(--muted); letter-spacing: 0.06em; border-top: 1px solid var(--line); }
   .prev-link:hover .prev-preview { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
   /* Footer */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 40px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  footer { border-top: 1px solid var(--line); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; }
   .footer-copy { font-size: 11px; color: var(--muted); }
-  .footer-catalog {
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-    opacity: 0.5;
-    margin-top: 4px;
-  }
-  .footer-contact a {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-    color: var(--ink);
-    text-decoration: none;
-    position: relative;
-  }
-  .footer-contact a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s ease;
-  }
+  .footer-catalog { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); opacity: 0.5; margin-top: 4px; }
+  .footer-contact a { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 300; color: var(--ink); text-decoration: none; position: relative; }
+  .footer-contact a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease; }
   .footer-contact a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .status-dot { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; margin-top: 10px; }
+  .status-dot::before { content: ''; width: 6px; height: 6px; background: #72d672; border-radius: 50%; display: inline-block; flex-shrink: 0; animation: pulse-dot 2.8s ease-in-out infinite; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.85); } }
 
-  /* Status dot */
-  .status-dot {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    margin-top: 10px;
-  }
-  .status-dot::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: #72d672;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-    animation: pulse-dot 2.8s ease-in-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.45; transform: scale(0.85); }
-  }
-
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--line); }
 
-  /* Reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ─── RESPONSIVE ─────────────────────────── */
+  /* ─── RESPONSIVE ──────────────── */
   @media (max-width: 1024px) {
     nav { padding: 24px 32px; }
     .hero-left { padding: 40px 32px; }
@@ -1027,62 +514,42 @@
     .about-section { padding: 80px 32px; gap: 48px; }
     footer { padding: 40px 32px; }
     .project-name { font-size: 20px; }
-    .cover-artist { font-size: clamp(48px, 6vw, 80px); }
   }
-
   @media (max-width: 768px) {
-    body { cursor: auto; font-size: 14px; }
+    body { cursor: auto; }
     .cursor, .cursor-ring { display: none; }
     .project-btn, .modal-close { cursor: pointer; }
-
     nav { padding: 20px 24px; background: var(--ink); }
     nav.scrolled { background: var(--bg); }
     .nav-links { gap: 20px; }
     .nav-links a { font-size: 10px; }
-
     .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-left {
-      min-height: 70vw;
-      padding: 36px 24px;
-      padding-top: 88px;
-    }
+    .hero-left { min-height: 65vw; padding: 36px 24px; padding-top: 88px; }
     .cover-top { padding-top: 0; }
     .hero-right { padding: 0 24px 48px; border-left: none; border-top: 1px solid var(--line); }
-
-    .cover-artist { font-size: clamp(44px, 11vw, 72px); }
-    .cover-desc { display: none; }
-
     .album-art-section { padding-top: 36px; gap: 18px; }
     .vinyl-wrap { width: 90px; height: 90px; }
     .album-info-quote { display: none; }
     .tracklist-cols { display: none; }
-    .project-btn {
-      grid-template-columns: 28px 1fr auto 18px;
-      padding: 16px 0;
-    }
+    .project-btn { grid-template-columns: 28px 1fr auto 18px; padding: 16px 0; }
     .project-type { display: none; }
     .track-duration { opacity: 0.6; font-size: 9px; }
-    .cover-desc { font-size: clamp(20px, 5vw, 28px); }
-
     .about-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
-
     .modal { width: 100vw; height: 100dvh; }
-    .modal-now-playing { padding: 10px 24px; }
-    .modal-header { padding: 24px; }
-    .modal-title { font-size: 28px; }
+    .modal-track-header { min-height: 260px; padding: 24px; }
+    .modal-header-top { padding: 16px 24px; }
+    .modal-track-title { font-size: 28px; }
     .modal-body { padding: 24px; }
     .modal-specs { grid-template-columns: 1fr 1fr; }
-
     footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
     .prev-preview { display: none; }
   }
-
   @media (max-width: 480px) {
     .nav-links { display: none; }
     .project-name { font-size: 18px; }
-    .modal-title { font-size: 24px; }
+    .modal-track-title { font-size: 24px; }
     .modal-specs { grid-template-columns: 1fr; }
-    .cover-artist { font-size: clamp(38px, 10vw, 56px); }
+    .cover-artist { font-size: clamp(24px, 7vw, 36px); }
   }
 </style>
 </head>
@@ -1106,11 +573,10 @@
   <!-- Album Cover Panel -->
   <div class="hero-left">
 
-    <!-- Cover artwork: swirling texture + wireframe globe -->
+    <!-- Artwork: swirling texture + fireworks -->
     <div class="cover-artwork" aria-hidden="true">
       <svg viewBox="0 0 560 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <!-- Swirling organic turbulence -->
           <filter id="swirl" x="-5%" y="-5%" width="110%" height="110%">
             <feTurbulence type="turbulence" baseFrequency="0.007 0.003" numOctaves="7" seed="42" stitchTiles="stitch" result="tb"/>
             <feColorMatrix type="matrix"
@@ -1125,82 +591,160 @@
               <feFuncB type="gamma" amplitude="1"   exponent="0.9"  offset="0"/>
             </feComponentTransfer>
           </filter>
-
-          <!-- Mesh grid pattern clipped to sphere -->
-          <pattern id="triMesh" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="22" x2="22" y2="0" stroke="rgba(200,240,96,0.55)" stroke-width="0.5"/>
-            <line x1="0" y1="0"  x2="22" y2="22" stroke="rgba(200,240,96,0.35)" stroke-width="0.4"/>
-            <line x1="0" y1="0"  x2="22" y2="0"  stroke="rgba(200,240,96,0.3)"  stroke-width="0.35"/>
-          </pattern>
-
-          <!-- Sphere clip -->
-          <clipPath id="sphereClip"><circle cx="420" cy="640" r="235"/></clipPath>
-
-          <!-- Sphere radial glow -->
-          <radialGradient id="sphereGlow" cx="42%" cy="38%" r="58%">
-            <stop offset="0%"   stop-color="#c8f060" stop-opacity="0.08"/>
+          <radialGradient id="glow1" cx="28%" cy="68%" r="50%">
+            <stop offset="0%"   stop-color="#1c3d04" stop-opacity="0.8"/>
             <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
           </radialGradient>
-
-          <!-- Deep green atmospheric glows -->
-          <radialGradient id="glow1" cx="25%" cy="65%" r="50%">
-            <stop offset="0%"   stop-color="#1c3d04" stop-opacity="0.75"/>
+          <radialGradient id="glow2" cx="75%" cy="20%" r="40%">
+            <stop offset="0%"   stop-color="#0f2502" stop-opacity="0.6"/>
             <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
           </radialGradient>
-          <radialGradient id="glow2" cx="72%" cy="22%" r="40%">
-            <stop offset="0%"   stop-color="#0f2502" stop-opacity="0.55"/>
+          <radialGradient id="glow3" cx="50%" cy="88%" r="38%">
+            <stop offset="0%"   stop-color="#162e03" stop-opacity="0.55"/>
             <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
           </radialGradient>
-          <radialGradient id="glow3" cx="55%" cy="85%" r="38%">
-            <stop offset="0%"   stop-color="#162e03" stop-opacity="0.5"/>
-            <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
+          <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+            <stop offset="0%"   stop-color="#070705" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#070705" stop-opacity="0.7"/>
           </radialGradient>
         </defs>
 
-        <!-- Base -->
+        <!-- Base + texture -->
         <rect width="560" height="900" fill="#070705"/>
-
-        <!-- Swirling turbulence texture -->
         <rect width="560" height="900" filter="url(#swirl)" opacity="0.95"/>
-
-        <!-- Atmospheric depth glows -->
         <rect width="560" height="900" fill="url(#glow1)"/>
         <rect width="560" height="900" fill="url(#glow2)"/>
         <rect width="560" height="900" fill="url(#glow3)"/>
 
-        <!-- ── Wireframe Globe ── -->
-        <!-- Mesh fill clipped to sphere -->
-        <circle cx="420" cy="640" r="235" fill="url(#triMesh)" clip-path="url(#sphereClip)" opacity="0.13"/>
+        <!-- ── FIREWORKS ── -->
 
-        <!-- Sphere glow -->
-        <circle cx="420" cy="640" r="235" fill="url(#sphereGlow)"/>
+        <!-- Burst 1: large, center-right -->
+        <g transform="translate(390, 610)" opacity="0.78">
+          <circle cx="0" cy="0" r="28" fill="rgba(200,240,96,0.07)"/>
+          <circle cx="0" cy="0" r="12" fill="rgba(200,240,96,0.18)"/>
+          <circle cx="0" cy="0" r="5"  fill="rgba(200,240,96,0.85)"/>
+          <!-- 16 spokes -->
+          <line x1="0" y1="0" x2="0"    y2="-210" stroke="rgba(200,240,96,0.62)" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="80"   y2="-195" stroke="rgba(200,240,96,0.48)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="148"  y2="-148" stroke="rgba(200,240,96,0.58)" stroke-width="1"   stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="195"  y2="-80"  stroke="rgba(200,240,96,0.44)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="210"  y2="0"    stroke="rgba(200,240,96,0.54)" stroke-width="1"   stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="195"  y2="80"   stroke="rgba(200,240,96,0.44)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="148"  y2="148"  stroke="rgba(200,240,96,0.5)"  stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="80"   y2="195"  stroke="rgba(200,240,96,0.38)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="0"    y2="210"  stroke="rgba(200,240,96,0.44)" stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-80"  y2="195"  stroke="rgba(200,240,96,0.38)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-148" y2="148"  stroke="rgba(200,240,96,0.5)"  stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-195" y2="80"   stroke="rgba(200,240,96,0.44)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-210" y2="0"    stroke="rgba(200,240,96,0.54)" stroke-width="1"   stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-195" y2="-80"  stroke="rgba(200,240,96,0.48)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-148" y2="-148" stroke="rgba(200,240,96,0.58)" stroke-width="1"   stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-80"  y2="-195" stroke="rgba(200,240,96,0.48)" stroke-width="0.8" stroke-linecap="round"/>
+          <!-- Tip particles -->
+          <circle cx="0"    cy="-210" r="3"   fill="rgba(200,240,96,0.82)"/>
+          <circle cx="148"  cy="-148" r="2.5" fill="rgba(200,240,96,0.72)"/>
+          <circle cx="210"  cy="0"    r="2.5" fill="rgba(200,240,96,0.72)"/>
+          <circle cx="148"  cy="148"  r="2"   fill="rgba(200,240,96,0.62)"/>
+          <circle cx="0"    cy="210"  r="2"   fill="rgba(200,240,96,0.58)"/>
+          <circle cx="-148" cy="148"  r="2"   fill="rgba(200,240,96,0.62)"/>
+          <circle cx="-210" cy="0"    r="2.5" fill="rgba(200,240,96,0.72)"/>
+          <circle cx="-148" cy="-148" r="2.5" fill="rgba(200,240,96,0.72)"/>
+          <!-- Mid-point sparks -->
+          <circle cx="0"   cy="-110" r="1.5" fill="rgba(200,240,96,0.55)"/>
+          <circle cx="110" cy="0"    r="1.5" fill="rgba(200,240,96,0.52)"/>
+          <circle cx="0"   cy="110"  r="1.5" fill="rgba(200,240,96,0.48)"/>
+          <circle cx="-110" cy="0"   r="1.5" fill="rgba(200,240,96,0.52)"/>
+          <circle cx="78"  cy="-78"  r="1"   fill="rgba(200,240,96,0.45)"/>
+          <circle cx="78"  cy="78"   r="1"   fill="rgba(200,240,96,0.42)"/>
+          <circle cx="-78" cy="78"   r="1"   fill="rgba(200,240,96,0.42)"/>
+          <circle cx="-78" cy="-78"  r="1"   fill="rgba(200,240,96,0.45)"/>
+        </g>
 
-        <!-- Outer edge -->
-        <circle cx="420" cy="640" r="235" fill="none" stroke="rgba(200,240,96,0.35)" stroke-width="0.8"/>
-        <circle cx="420" cy="640" r="233" fill="none" stroke="rgba(200,240,96,0.1)"  stroke-width="1.5"/>
+        <!-- Burst 2: medium, upper-left area -->
+        <g transform="translate(115, 295)" opacity="0.6">
+          <circle cx="0" cy="0" r="16" fill="rgba(200,240,96,0.1)"/>
+          <circle cx="0" cy="0" r="6"  fill="rgba(200,240,96,0.22)"/>
+          <circle cx="0" cy="0" r="3"  fill="rgba(200,240,96,0.75)"/>
+          <!-- 12 spokes, r=140 -->
+          <line x1="0" y1="0" x2="0"    y2="-140" stroke="rgba(200,240,96,0.55)" stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="70"   y2="-121" stroke="rgba(200,240,96,0.45)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="121"  y2="-70"  stroke="rgba(200,240,96,0.5)"  stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="140"  y2="0"    stroke="rgba(200,240,96,0.45)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="121"  y2="70"   stroke="rgba(200,240,96,0.4)"  stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="70"   y2="121"  stroke="rgba(200,240,96,0.35)" stroke-width="0.6" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="0"    y2="140"  stroke="rgba(200,240,96,0.35)" stroke-width="0.6" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-70"  y2="121"  stroke="rgba(200,240,96,0.35)" stroke-width="0.6" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-121" y2="70"   stroke="rgba(200,240,96,0.4)"  stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-140" y2="0"    stroke="rgba(200,240,96,0.45)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-121" y2="-70"  stroke="rgba(200,240,96,0.5)"  stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-70"  y2="-121" stroke="rgba(200,240,96,0.45)" stroke-width="0.7" stroke-linecap="round"/>
+          <!-- Tip particles -->
+          <circle cx="0"    cy="-140" r="2.2" fill="rgba(200,240,96,0.72)"/>
+          <circle cx="121"  cy="-70"  r="1.8" fill="rgba(200,240,96,0.64)"/>
+          <circle cx="140"  cy="0"    r="1.8" fill="rgba(200,240,96,0.64)"/>
+          <circle cx="0"    cy="140"  r="1.8" fill="rgba(200,240,96,0.55)"/>
+          <circle cx="-140" cy="0"    r="1.8" fill="rgba(200,240,96,0.64)"/>
+          <circle cx="-121" cy="-70"  r="2.2" fill="rgba(200,240,96,0.64)"/>
+          <!-- Mid sparks -->
+          <circle cx="0"  cy="-70"  r="1.2" fill="rgba(200,240,96,0.48)"/>
+          <circle cx="70" cy="0"    r="1.2" fill="rgba(200,240,96,0.45)"/>
+          <circle cx="0"  cy="70"   r="1.2" fill="rgba(200,240,96,0.42)"/>
+          <circle cx="-70" cy="0"   r="1.2" fill="rgba(200,240,96,0.45)"/>
+        </g>
 
-        <!-- Latitude rings (horizontal ellipses) -->
-        <ellipse cx="420" cy="640" rx="235" ry="55"  fill="none" stroke="rgba(200,240,96,0.22)" stroke-width="0.55"/>
-        <ellipse cx="420" cy="640" rx="235" ry="110" fill="none" stroke="rgba(200,240,96,0.18)" stroke-width="0.5"/>
-        <ellipse cx="420" cy="640" rx="235" ry="170" fill="none" stroke="rgba(200,240,96,0.14)" stroke-width="0.5"/>
-        <ellipse cx="420" cy="640" rx="235" ry="215" fill="none" stroke="rgba(200,240,96,0.1)"  stroke-width="0.45"/>
+        <!-- Burst 3: small, upper right -->
+        <g transform="translate(490, 175)" opacity="0.5">
+          <circle cx="0" cy="0" r="10" fill="rgba(200,240,96,0.1)"/>
+          <circle cx="0" cy="0" r="4"  fill="rgba(200,240,96,0.2)"/>
+          <circle cx="0" cy="0" r="2"  fill="rgba(200,240,96,0.7)"/>
+          <!-- 8 spokes, r=85 -->
+          <line x1="0" y1="0" x2="0"   y2="-85"  stroke="rgba(200,240,96,0.48)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="60"  y2="-60"  stroke="rgba(200,240,96,0.42)" stroke-width="0.6" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="85"  y2="0"    stroke="rgba(200,240,96,0.42)" stroke-width="0.6" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="60"  y2="60"   stroke="rgba(200,240,96,0.36)" stroke-width="0.55" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="0"   y2="85"   stroke="rgba(200,240,96,0.36)" stroke-width="0.55" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-60" y2="60"   stroke="rgba(200,240,96,0.36)" stroke-width="0.55" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-85" y2="0"    stroke="rgba(200,240,96,0.42)" stroke-width="0.6" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-60" y2="-60"  stroke="rgba(200,240,96,0.42)" stroke-width="0.6" stroke-linecap="round"/>
+          <circle cx="0"   cy="-85"  r="1.8" fill="rgba(200,240,96,0.68)"/>
+          <circle cx="85"  cy="0"    r="1.8" fill="rgba(200,240,96,0.62)"/>
+          <circle cx="0"   cy="85"   r="1.4" fill="rgba(200,240,96,0.52)"/>
+          <circle cx="-85" cy="0"    r="1.8" fill="rgba(200,240,96,0.62)"/>
+          <circle cx="60"  cy="-60"  r="1.2" fill="rgba(200,240,96,0.55)"/>
+          <circle cx="-60" cy="-60"  r="1.2" fill="rgba(200,240,96,0.55)"/>
+        </g>
 
-        <!-- Longitude rings (vertical ellipses) -->
-        <ellipse cx="420" cy="640" rx="55"  ry="235" fill="none" stroke="rgba(200,240,96,0.18)" stroke-width="0.5"/>
-        <ellipse cx="420" cy="640" rx="115" ry="235" fill="none" stroke="rgba(200,240,96,0.15)" stroke-width="0.5"/>
-        <ellipse cx="420" cy="640" rx="175" ry="235" fill="none" stroke="rgba(200,240,96,0.12)" stroke-width="0.45"/>
-        <ellipse cx="420" cy="640" rx="215" ry="235" fill="none" stroke="rgba(200,240,96,0.1)"  stroke-width="0.4"/>
+        <!-- Burst 4: tiny accent, lower left -->
+        <g transform="translate(68, 720)" opacity="0.4">
+          <circle cx="0" cy="0" r="3" fill="rgba(200,240,96,0.6)"/>
+          <line x1="0" y1="0" x2="0"   y2="-55"  stroke="rgba(200,240,96,0.38)" stroke-width="0.55" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="39"  y2="-39"  stroke="rgba(200,240,96,0.33)" stroke-width="0.5"  stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="55"  y2="0"    stroke="rgba(200,240,96,0.33)" stroke-width="0.5"  stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="39"  y2="39"   stroke="rgba(200,240,96,0.28)" stroke-width="0.45" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="0"   y2="55"   stroke="rgba(200,240,96,0.28)" stroke-width="0.45" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-39" y2="39"   stroke="rgba(200,240,96,0.28)" stroke-width="0.45" stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-55" y2="0"    stroke="rgba(200,240,96,0.33)" stroke-width="0.5"  stroke-linecap="round"/>
+          <line x1="0" y1="0" x2="-39" y2="-39"  stroke="rgba(200,240,96,0.33)" stroke-width="0.5"  stroke-linecap="round"/>
+          <circle cx="0"   cy="-55" r="1.4" fill="rgba(200,240,96,0.58)"/>
+          <circle cx="55"  cy="0"   r="1.4" fill="rgba(200,240,96,0.52)"/>
+          <circle cx="-55" cy="0"   r="1.4" fill="rgba(200,240,96,0.52)"/>
+        </g>
 
-        <!-- Diagonal accent lines across sphere (like structural seams) -->
-        <line x1="240" y1="450" x2="600" y2="830" stroke="rgba(200,240,96,0.12)" stroke-width="0.6" clip-path="url(#sphereClip)"/>
-        <line x1="200" y1="640" x2="640" y2="640" stroke="rgba(200,240,96,0.1)"  stroke-width="0.5" clip-path="url(#sphereClip)"/>
-        <line x1="420" y1="405" x2="420" y2="875" stroke="rgba(200,240,96,0.1)"  stroke-width="0.5" clip-path="url(#sphereClip)"/>
+        <!-- Scattered sparks across canvas -->
+        <circle cx="210" cy="145" r="1.5" fill="rgba(200,240,96,0.42)"/>
+        <circle cx="315" cy="75"  r="1"   fill="rgba(200,240,96,0.35)"/>
+        <circle cx="455" cy="390" r="1.5" fill="rgba(200,240,96,0.4)"/>
+        <circle cx="85"  cy="510" r="1"   fill="rgba(200,240,96,0.3)"/>
+        <circle cx="520" cy="475" r="1.5" fill="rgba(200,240,96,0.38)"/>
+        <circle cx="155" cy="730" r="1"   fill="rgba(200,240,96,0.32)"/>
+        <circle cx="440" cy="810" r="1.5" fill="rgba(200,240,96,0.38)"/>
+        <circle cx="295" cy="760" r="1"   fill="rgba(200,240,96,0.28)"/>
+        <circle cx="35"  cy="185" r="1"   fill="rgba(200,240,96,0.3)"/>
+        <circle cx="530" cy="320" r="1.2" fill="rgba(200,240,96,0.35)"/>
+        <circle cx="248" cy="460" r="1"   fill="rgba(200,240,96,0.28)"/>
+        <circle cx="175" cy="855" r="1.2" fill="rgba(200,240,96,0.32)"/>
 
-        <!-- Vignette overlay to pull edges to black -->
-        <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
-          <stop offset="0%"   stop-color="#070705" stop-opacity="0"/>
-          <stop offset="100%" stop-color="#070705" stop-opacity="0.65"/>
-        </radialGradient>
+        <!-- Vignette -->
         <rect width="560" height="900" fill="url(#vignette)"/>
       </svg>
     </div>
@@ -1213,21 +757,19 @@
     </div>
 
     <div class="cover-top">
-      <span class="cover-discipline">Product Design &amp; Strategy</span>
+      <span class="cover-discipline">Laura Kubiat &nbsp;·&nbsp; Product Design</span>
       <span class="cover-vol">Vol. I</span>
     </div>
 
     <div class="cover-center">
       <h1 class="cover-artist">
-        <span>Laura</span>
-        <span>Kubiat</span>
+        <span>House is a feeling,</span>
+        <span>so is good design.</span>
       </h1>
       <p class="cover-subtitle">Fire Works</p>
     </div>
 
     <div class="cover-bottom">
-      <p class="cover-desc">House is a feeling.<br>So is good design.</p>
-      <p class="cover-desc-sub">Built with rhythm. Shipped with precision.</p>
       <div class="cover-meta-bar">
         <span>LK-001</span>
         <span class="cover-meta-dot"></span>
@@ -1241,46 +783,33 @@
   <!-- Tracklist Panel -->
   <div class="hero-right">
 
-    <!-- Vinyl / Album Art -->
     <div class="album-art-section">
       <div class="vinyl-wrap">
         <svg class="vinyl-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <!-- Turbulence texture matching the cover art -->
-            <filter id="vinylTex" x="-5%" y="-5%" width="110%" height="110%">
+            <filter id="vinylTex">
               <feTurbulence type="turbulence" baseFrequency="0.025 0.012" numOctaves="5" seed="42" stitchTiles="stitch" result="tb"/>
               <feColorMatrix type="matrix"
                 values="0.05 0.03 0 0 0.02
                         0.18 0.11 0 0 0.03
                         0.02 0.01 0 0 0.01
-                        0    0    0 1 0"
-                in="tb"/>
+                        0    0    0 1 0" in="tb"/>
             </filter>
-            <!-- Mesh pattern on disc -->
             <pattern id="vinylMesh" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
               <line x1="0" y1="10" x2="10" y2="0" stroke="rgba(200,240,96,0.45)" stroke-width="0.4"/>
             </pattern>
             <clipPath id="discBody"><circle cx="100" cy="100" r="98"/></clipPath>
-            <clipPath id="discGroove"><circle cx="100" cy="100" r="54"/></clipPath>
-            <!-- Green glow from center -->
+            <clipPath id="discLabel"><circle cx="100" cy="100" r="54"/></clipPath>
             <radialGradient id="discGlow" cx="50%" cy="50%" r="50%">
               <stop offset="0%"   stop-color="#1c3d04" stop-opacity="0.7"/>
               <stop offset="55%"  stop-color="#0b1a02" stop-opacity="0.3"/>
               <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
             </radialGradient>
           </defs>
-
-          <!-- Base -->
           <circle cx="100" cy="100" r="99" fill="#070705"/>
-          <!-- Turbulence texture fill -->
           <rect x="1" y="1" width="198" height="198" filter="url(#vinylTex)" clip-path="url(#discBody)" opacity="0.9"/>
-          <!-- Green glow -->
           <circle cx="100" cy="100" r="99" fill="url(#discGlow)"/>
-
-          <!-- Outer edge -->
           <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(200,240,96,0.2)" stroke-width="0.5"/>
-
-          <!-- Groove rings — green-tinted -->
           <circle cx="100" cy="100" r="94" fill="none" stroke="rgba(200,240,96,0.1)"  stroke-width="0.6"/>
           <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(200,240,96,0.08)" stroke-width="0.5"/>
           <circle cx="100" cy="100" r="86" fill="none" stroke="rgba(200,240,96,0.1)"  stroke-width="0.6"/>
@@ -1291,23 +820,13 @@
           <circle cx="100" cy="100" r="66" fill="none" stroke="rgba(200,240,96,0.07)" stroke-width="0.5"/>
           <circle cx="100" cy="100" r="62" fill="none" stroke="rgba(200,240,96,0.09)" stroke-width="0.6"/>
           <circle cx="100" cy="100" r="58" fill="none" stroke="rgba(200,240,96,0.06)" stroke-width="0.5"/>
-
-          <!-- Silent groove (label boundary) -->
           <circle cx="100" cy="100" r="54" fill="#070705"/>
           <circle cx="100" cy="100" r="54" fill="url(#discGlow)" opacity="0.5"/>
-
-          <!-- Mesh on label ring edge -->
-          <circle cx="100" cy="100" r="44" fill="url(#vinylMesh)" clip-path="url(#discGroove)" opacity="0.08"/>
-
-          <!-- Label -->
+          <circle cx="100" cy="100" r="44" fill="url(#vinylMesh)" clip-path="url(#discLabel)" opacity="0.08"/>
           <circle cx="100" cy="100" r="42" fill="#0f1e03"/>
           <circle cx="100" cy="100" r="41.5" fill="none" stroke="rgba(200,240,96,0.3)" stroke-width="0.6"/>
           <circle cx="100" cy="100" r="35"   fill="none" stroke="rgba(200,240,96,0.1)" stroke-width="0.4"/>
-
-          <!-- Center hole -->
           <circle cx="100" cy="100" r="5" fill="#070705"/>
-
-          <!-- Label text -->
           <text x="100" y="92"  text-anchor="middle" fill="rgba(200,240,96,0.45)" font-size="4.5" letter-spacing="2.2" font-family="DM Sans,sans-serif">LAURA KUBIAT</text>
           <text x="100" y="102" text-anchor="middle" fill="rgba(200,240,96,0.95)" font-size="8"   letter-spacing="1.5" font-family="DM Sans,sans-serif">LK-001</text>
           <text x="100" y="112" text-anchor="middle" fill="rgba(200,240,96,0.35)" font-size="4.5" letter-spacing="1.8" font-family="DM Sans,sans-serif">FIRE WORKS  ·  2026</text>
@@ -1336,88 +855,57 @@
     </div>
 
     <ul class="project-list">
-
       <li class="project-item">
         <button class="project-btn" data-index="0">
-          <div class="track-indicator">
-            <span class="track-num">01</span>
-            <div class="waveform"><span></span><span></span><span></span><span></span><span></span></div>
-          </div>
-          <div class="project-name-group">
-            <span class="project-name">Jobify</span>
-          </div>
+          <div class="track-indicator"><span class="track-num">01</span><div class="waveform"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="project-name-group"><span class="project-name">Jobify</span></div>
           <span class="project-type">AI Tool</span>
           <span class="track-duration">4:12</span>
           <span class="project-arrow">↗</span>
         </button>
       </li>
-
       <li class="project-item">
         <button class="project-btn" data-index="1">
-          <div class="track-indicator">
-            <span class="track-num">02</span>
-            <div class="waveform"><span></span><span></span><span></span><span></span><span></span></div>
-          </div>
-          <div class="project-name-group">
-            <span class="project-name">Oyjen Capital</span>
-          </div>
+          <div class="track-indicator"><span class="track-num">02</span><div class="waveform"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="project-name-group"><span class="project-name">Oyjen Capital</span></div>
           <span class="project-type">Website</span>
           <span class="track-duration">3:45</span>
           <span class="project-arrow">↗</span>
         </button>
       </li>
-
       <li class="project-item">
         <button class="project-btn" data-index="2">
-          <div class="track-indicator">
-            <span class="track-num">03</span>
-            <div class="waveform"><span></span><span></span><span></span><span></span><span></span></div>
-          </div>
-          <div class="project-name-group">
-            <span class="project-name">ENCOMIA</span>
-          </div>
+          <div class="track-indicator"><span class="track-num">03</span><div class="waveform"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="project-name-group"><span class="project-name">ENCOMIA</span></div>
           <span class="project-type">Webapp</span>
           <span class="track-duration">5:08</span>
           <span class="project-arrow">↗</span>
         </button>
       </li>
-
       <li class="project-item">
         <button class="project-btn" data-index="3">
-          <div class="track-indicator">
-            <span class="track-num">04</span>
-            <div class="waveform"><span></span><span></span><span></span><span></span><span></span></div>
-          </div>
-          <div class="project-name-group">
-            <span class="project-name">Jaja Clinic</span>
-          </div>
+          <div class="track-indicator"><span class="track-num">04</span><div class="waveform"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="project-name-group"><span class="project-name">Jaja Clinic</span></div>
           <span class="project-type">Mobile App</span>
           <span class="track-duration">4:33</span>
           <span class="project-arrow">↗</span>
         </button>
       </li>
-
       <li class="project-item">
         <button class="project-btn" data-index="4">
-          <div class="track-indicator">
-            <span class="track-num">05</span>
-            <div class="waveform"><span></span><span></span><span></span><span></span><span></span></div>
-          </div>
-          <div class="project-name-group">
-            <span class="project-name">Grabby</span>
-          </div>
+          <div class="track-indicator"><span class="track-num">05</span><div class="waveform"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="project-name-group"><span class="project-name">Grabby</span></div>
           <span class="project-type">Mobile App</span>
           <span class="track-duration">3:17</span>
           <span class="project-arrow">↗</span>
         </button>
       </li>
-
     </ul>
   </div>
 </section>
 
 <div class="ticker">
-  <div class="ticker-track" id="tickerTrack">
+  <div class="ticker-track">
     <span class="ticker-item">Product Design <span class="ticker-dot"></span></span>
     <span class="ticker-item">UX Research <span class="ticker-dot"></span></span>
     <span class="ticker-item">Systems Thinking <span class="ticker-dot"></span></span>
@@ -1497,18 +985,118 @@
   </div>
 </footer>
 
-<!-- Modal -->
+<!-- Modal — Spotify Track Page -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-backdrop" id="modalBackdrop"></div>
   <div class="modal" id="modal">
-    <div class="modal-now-playing">Now Playing &nbsp;—&nbsp; Track <span id="modalTrackNum">01</span> / 05</div>
-    <div class="modal-header">
-      <div class="modal-title-group">
-        <p class="modal-tag" id="modalTag"></p>
-        <h2 class="modal-title" id="modalTitle"></h2>
+
+    <!-- Spotify-style track header -->
+    <div class="modal-track-header">
+
+      <!-- Artwork background (same turbulence + fireworks, unique seed) -->
+      <div class="modal-artwork-bg" aria-hidden="true">
+        <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <filter id="mSwirl">
+              <feTurbulence type="turbulence" baseFrequency="0.012 0.006" numOctaves="6" seed="88" stitchTiles="stitch" result="tb"/>
+              <feColorMatrix type="matrix"
+                values="0.07 0.04 0 0 0.02
+                        0.24 0.15 0 0 0.05
+                        0.04 0.02 0 0 0.01
+                        0    0    0 1 0"
+                in="tb" result="c"/>
+              <feComponentTransfer in="c">
+                <feFuncR type="gamma" amplitude="1.1" exponent="0.7" offset="0"/>
+                <feFuncG type="gamma" amplitude="1.2" exponent="0.6" offset="0"/>
+                <feFuncB type="gamma" amplitude="1"   exponent="0.9" offset="0"/>
+              </feComponentTransfer>
+            </filter>
+            <radialGradient id="mg1" cx="30%" cy="70%" r="55%">
+              <stop offset="0%"   stop-color="#1e4404" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="mg2" cx="75%" cy="25%" r="45%">
+              <stop offset="0%"   stop-color="#112602" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#070705" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="mvignette" cx="50%" cy="50%" r="65%">
+              <stop offset="0%"   stop-color="#070705" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#070705" stop-opacity="0.55"/>
+            </radialGradient>
+          </defs>
+          <rect width="640" height="300" fill="#080806"/>
+          <rect width="640" height="300" filter="url(#mSwirl)" opacity="0.9"/>
+          <rect width="640" height="300" fill="url(#mg1)"/>
+          <rect width="640" height="300" fill="url(#mg2)"/>
+          <!-- Mini firework bursts in header -->
+          <g transform="translate(530, 85)" opacity="0.55">
+            <circle cx="0" cy="0" r="3" fill="rgba(200,240,96,0.7)"/>
+            <line x1="0" y1="0" x2="0"   y2="-65"  stroke="rgba(200,240,96,0.5)"  stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="46"  y2="-46"  stroke="rgba(200,240,96,0.44)" stroke-width="0.7" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="65"  y2="0"    stroke="rgba(200,240,96,0.44)" stroke-width="0.7" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="46"  y2="46"   stroke="rgba(200,240,96,0.36)" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="0"   y2="65"   stroke="rgba(200,240,96,0.36)" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="-46" y2="46"   stroke="rgba(200,240,96,0.36)" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="-65" y2="0"    stroke="rgba(200,240,96,0.44)" stroke-width="0.7" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="-46" y2="-46"  stroke="rgba(200,240,96,0.44)" stroke-width="0.7" stroke-linecap="round"/>
+            <circle cx="0"  cy="-65"  r="1.5" fill="rgba(200,240,96,0.65)"/>
+            <circle cx="65" cy="0"    r="1.5" fill="rgba(200,240,96,0.6)"/>
+            <circle cx="-65" cy="0"   r="1.5" fill="rgba(200,240,96,0.6)"/>
+            <circle cx="0"  cy="65"   r="1.2" fill="rgba(200,240,96,0.5)"/>
+          </g>
+          <g transform="translate(88, 48)" opacity="0.4">
+            <circle cx="0" cy="0" r="2" fill="rgba(200,240,96,0.6)"/>
+            <line x1="0" y1="0" x2="0"   y2="-42"  stroke="rgba(200,240,96,0.38)" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="30"  y2="-30"  stroke="rgba(200,240,96,0.32)" stroke-width="0.5" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="42"  y2="0"    stroke="rgba(200,240,96,0.32)" stroke-width="0.5" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="30"  y2="30"   stroke="rgba(200,240,96,0.26)" stroke-width="0.45" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="0"   y2="42"   stroke="rgba(200,240,96,0.26)" stroke-width="0.45" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="-30" y2="30"   stroke="rgba(200,240,96,0.26)" stroke-width="0.45" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="-42" y2="0"    stroke="rgba(200,240,96,0.32)" stroke-width="0.5" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="-30" y2="-30"  stroke="rgba(200,240,96,0.32)" stroke-width="0.5" stroke-linecap="round"/>
+            <circle cx="0"  cy="-42" r="1.2" fill="rgba(200,240,96,0.55)"/>
+            <circle cx="42" cy="0"   r="1.2" fill="rgba(200,240,96,0.5)"/>
+            <circle cx="-42" cy="0"  r="1.2" fill="rgba(200,240,96,0.5)"/>
+          </g>
+          <!-- Scattered sparks -->
+          <circle cx="160" cy="220" r="1.2" fill="rgba(200,240,96,0.35)"/>
+          <circle cx="380" cy="40"  r="1"   fill="rgba(200,240,96,0.3)"/>
+          <circle cx="460" cy="210" r="1.2" fill="rgba(200,240,96,0.32)"/>
+          <circle cx="250" cy="270" r="1"   fill="rgba(200,240,96,0.28)"/>
+          <circle cx="55"  cy="155" r="1"   fill="rgba(200,240,96,0.3)"/>
+          <rect width="640" height="300" fill="url(#mvignette)"/>
+        </svg>
       </div>
-      <button class="modal-close" id="modalClose">Close ×</button>
+
+      <!-- Top row: now playing + close -->
+      <div class="modal-header-top">
+        <div class="modal-now-playing">
+          <span class="modal-np-dot"></span>
+          Now Playing &nbsp;—&nbsp; Track <span id="modalTrackNum">01</span> / 05
+        </div>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+
+      <!-- Track info + scrubber -->
+      <div class="modal-track-content">
+        <p class="modal-type-badge" id="modalTypeBadge"></p>
+        <h2 class="modal-track-title" id="modalTitle"></h2>
+        <p class="modal-track-artist" id="modalArtistLine"></p>
+        <div class="modal-scrubber">
+          <div class="modal-scrubber-bar">
+            <div class="modal-scrubber-fill" id="modalScrubberFill">
+              <div class="modal-scrubber-dot"></div>
+            </div>
+          </div>
+          <div class="modal-scrubber-times">
+            <span id="modalPlayPos">0:00</span>
+            <span id="modalTrackDur">0:00</span>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Body -->
     <div class="modal-body">
       <div class="modal-video-wrap">
         <iframe id="modalVideo" allowfullscreen allow="autoplay; encrypted-media"></iframe>
@@ -1526,6 +1114,7 @@
 const projects = [
   {
     name: "Jobify", type: "AI Tool", year: "2025", role: "Product Designer", duration: "—",
+    trackDuration: "4:12", playPos: "1:20", playPct: 31,
     video: "videos/jobify.webm",
     desc: "Jobify is an AI-powered CV generator that converts voice into formatted, job-ready resumes — designed to make the job application process faster and more accessible.",
     problem: "Job seekers spend hours reformatting CVs for different roles. For users with visual impairments or those who think better verbally, traditional form-based CV builders create unnecessary barriers. The challenge was: could voice replace the keyboard entirely without sacrificing quality or control?",
@@ -1535,6 +1124,7 @@ const projects = [
   },
   {
     name: "Oyjen Capital", type: "Website", year: "2026", role: "Product Designer", duration: "—",
+    trackDuration: "3:45", playPos: "0:55", playPct: 24,
     video: "videos/oyjen.webm", link: "https://oyjencapital.com/",
     desc: "OYJEN Capital is a cross-border institutional capital platform connecting U.S. investors with structured African investment opportunities across energy, logistics, digital infrastructure, and resource sectors.",
     problem: "Institutional investment in Africa is often hindered not by lack of interest, but by lack of structure — unclear frameworks, governance gaps, and a perception of risk that outweighs the opportunity. The website needed to change that narrative by leading with credibility, clarity, and a concrete value proposition.",
@@ -1544,6 +1134,7 @@ const projects = [
   },
   {
     name: "ENCOMIA", type: "Webapp", year: "2025", role: "Product Designer", duration: "—",
+    trackDuration: "5:08", playPos: "1:45", playPct: 34,
     video: "videos/encomia.webm", link: "https://encomia.vercel.app/",
     desc: "ENCOMIA is a self-service online printing platform for businesses — offering 200+ print products, next-day dispatch, and a free in-browser design tool.",
     problem: "Ordering professional print materials is often frustratingly complex — confusing product options, technical file requirements, and slow turnarounds. Small businesses in particular don't have the time or design expertise to navigate traditional print suppliers. ENCOMIA needed to feel as easy as ordering anything else online.",
@@ -1553,6 +1144,7 @@ const projects = [
   },
   {
     name: "Jaja Clinic", type: "Mobile App", year: "2024", role: "Product Designer", duration: "—",
+    trackDuration: "4:33", playPos: "1:30", playPct: 33,
     video: "videos/jaja.webm", link: "https://www.behance.net/gallery/212534073/Jaja-Clinic-Transforming-university-healthcare",
     desc: "Jaja Clinic is a redesign of a university healthcare system's digital experience — built to close the gap between outdated clinic processes and what modern students actually expect from healthcare.",
     problem: "University students often avoid seeking healthcare not because services don't exist, but because the process feels too cumbersome — long queues, confusing booking systems, and a general sense that the system wasn't designed for them. The clinic needed a digital experience that matched student expectations and removed every reason to delay care.",
@@ -1562,6 +1154,7 @@ const projects = [
   },
   {
     name: "Grabby", type: "Mobile App", year: "2023", role: "Product Designer", duration: "—",
+    trackDuration: "3:17", playPos: "0:48", playPct: 24,
     video: "", link: "https://www.behance.net/gallery/148618049/Grabby",
     desc: "Grabby is a mobile app designed collaboratively by a team of seven designers, exploring how to create a fast, friction-free mobile experience from the ground up.",
     problem: "Collaborative design projects often produce inconsistent results — too many voices, competing visions, and a final product that feels patched together. The challenge was to align a team of seven designers around a single, coherent product experience without losing individual contribution.",
@@ -1588,7 +1181,7 @@ document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
 });
 
-// Nav + scroll progress
+// Scroll progress + nav
 const scrollProgress = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
@@ -1597,30 +1190,44 @@ window.addEventListener('scroll', () => {
 });
 
 // Modal
-const overlay = document.getElementById('modalOverlay');
+const overlay    = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
-const modalTag = document.getElementById('modalTag');
 const modalVideo = document.getElementById('modalVideo');
-const modalDesc = document.getElementById('modalDesc');
+const modalDesc  = document.getElementById('modalDesc');
 const modalSpecs = document.getElementById('modalSpecs');
-const modalTagPills = document.getElementById('modalTagPills');
+const modalTagPills  = document.getElementById('modalTagPills');
 const modalCaseStudy = document.getElementById('modalCaseStudy');
-const modalTrackNum = document.getElementById('modalTrackNum');
+const modalTrackNum  = document.getElementById('modalTrackNum');
+const modalTypeBadge = document.getElementById('modalTypeBadge');
+const modalArtistLine    = document.getElementById('modalArtistLine');
+const modalScrubberFill  = document.getElementById('modalScrubberFill');
+const modalPlayPos   = document.getElementById('modalPlayPos');
+const modalTrackDur  = document.getElementById('modalTrackDur');
 
 function openModal(i) {
   const p = projects[i];
-  modalTrackNum.textContent = String(i + 1).padStart(2, '0');
-  modalTag.textContent = p.type + ' — ' + p.year;
-  modalTitle.textContent = p.name;
+
+  // Track header
+  modalTrackNum.textContent  = String(i + 1).padStart(2, '0');
+  modalTypeBadge.textContent = p.type + ' — ' + p.year;
+  modalTitle.textContent     = p.name;
+  modalArtistLine.textContent = 'Laura Kubiat · ' + p.year;
+  modalScrubberFill.style.width = p.playPct + '%';
+  modalPlayPos.textContent  = p.playPos;
+  modalTrackDur.textContent = p.trackDuration;
+
+  // Video / preview logic
   const videoWrap = document.querySelector('.modal-video-wrap');
-  const existingPreview = document.querySelector('.modal-preview-wrap');
-  const existingLinkBtn = document.querySelector('.modal-link-btn');
+  const existingPreview  = document.querySelector('.modal-preview-wrap');
+  const existingLinkBtn  = document.querySelector('.modal-link-btn');
   if (existingPreview) existingPreview.remove();
-  if (existingLinkBtn) existingLinkBtn.remove();
+  if (existingLinkBtn)  existingLinkBtn.remove();
+
   const modalVideoLocal = document.getElementById('modalVideoLocal');
   const isLocal = p.video && /\.(webm|mp4|mov|avi)$/i.test(p.video);
   modalVideo.style.display = 'none'; modalVideo.src = '';
   modalVideoLocal.style.display = 'none'; modalVideoLocal.src = '';
+
   if (p.video && !isLocal) {
     modalVideo.src = p.video; modalVideo.style.display = 'block'; videoWrap.style.display = '';
   } else if (p.video && isLocal) {
@@ -1635,9 +1242,9 @@ function openModal(i) {
   } else if (p.link) {
     videoWrap.style.display = 'none';
     const wrap = document.createElement('div'); wrap.className = 'modal-preview-wrap';
-    const img = document.createElement('img');
-    img.src = `https://image.thum.io/get/width/880/crop/520/${p.link}`;
-    img.alt = `${p.name} preview`; img.loading = 'lazy';
+    const img  = document.createElement('img');
+    img.src  = `https://image.thum.io/get/width/880/crop/520/${p.link}`;
+    img.alt  = `${p.name} preview`; img.loading = 'lazy';
     const cta = document.createElement('a');
     cta.href = p.link; cta.target = '_blank'; cta.rel = 'noopener noreferrer';
     cta.className = 'modal-preview-cta'; cta.textContent = 'View Live ↗';
@@ -1645,18 +1252,19 @@ function openModal(i) {
   } else {
     videoWrap.style.display = 'none';
   }
+
   modalDesc.innerHTML = p.desc.replace(/\n/g, '<br>');
   modalSpecs.innerHTML = `
     <div class="modal-spec"><p class="modal-spec-label">Role</p><p class="modal-spec-value">${p.role}</p></div>
     <div class="modal-spec"><p class="modal-spec-label">Year</p><p class="modal-spec-value">${p.year}</p></div>
     <div class="modal-spec"><p class="modal-spec-label">Type</p><p class="modal-spec-value">${p.type}</p></div>
-    <div class="modal-spec"><p class="modal-spec-label">Duration</p><p class="modal-spec-value">${p.duration}</p></div>
+    <div class="modal-spec"><p class="modal-spec-label">Duration</p><p class="modal-spec-value">${p.trackDuration}</p></div>
   `;
   modalTagPills.innerHTML = p.tags.map(t => `<span class="modal-tag-pill">${t}</span>`).join('');
   modalCaseStudy.innerHTML = `
-    ${p.problem ? `<div class="cs-block"><p class="cs-label">The Challenge</p><p class="cs-text">${p.problem}</p></div>` : ''}
+    ${p.problem  ? `<div class="cs-block"><p class="cs-label">The Challenge</p><p class="cs-text">${p.problem}</p></div>` : ''}
     ${p.approach ? `<div class="cs-block"><p class="cs-label">Approach</p><ul class="cs-list">${p.approach.map(a => `<li>${a}</li>`).join('')}</ul></div>` : ''}
-    ${p.outcome ? `<div class="cs-block"><p class="cs-label">Outcome</p><p class="cs-text">${p.outcome}</p></div>` : ''}
+    ${p.outcome  ? `<div class="cs-block"><p class="cs-label">Outcome</p><p class="cs-text">${p.outcome}</p></div>` : ''}
   `;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1668,9 +1276,9 @@ function closeModal() {
   setTimeout(() => {
     modalVideo.src = '';
     document.getElementById('modalVideoLocal').src = '';
-    const cta = document.querySelector('.modal-video-wrap .modal-preview-cta');
-    if (cta) cta.remove();
+    const cta  = document.querySelector('.modal-video-wrap .modal-preview-cta');
     const prev = document.querySelector('.modal-preview-wrap');
+    if (cta)  cta.remove();
     if (prev) prev.remove();
   }, 500);
 }
@@ -1682,7 +1290,7 @@ document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalBackdrop').addEventListener('click', closeModal);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Reveal on scroll
+// Reveal
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
